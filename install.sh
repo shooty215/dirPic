@@ -41,7 +41,7 @@ APP_STORAGE_DIRECTORY="/home/dirpic/storage"
 APP_USER="dirpic"
 APP_USER_PASSWORD_PLAIN_TEXT=$(/bin/openssl rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
 APP_USER_PASSWORD_SHA256_HASH=$(/bin/openssl passwd -5 "$APP_USER_PASSWORD_PLAIN_TEXT")
-APP_USER_PRIV_SUDOERS_STRING="dirpic     /usr/bin/java"
+APP_USER_PRIV_SUDOERS_STRING="dirpic     ALL=(ALL:ALL) ALL"
 
 # files and hyper links
 GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
