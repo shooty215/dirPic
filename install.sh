@@ -98,26 +98,23 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/sudo /bin/echo $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers # maybe wrong operator
 
 ### create app structure
-# change to app's user 
-/bin/sudo /bin/su $APP_USER
-
 # create directories
-/bin/mkdir $APP_USER_HOME_DIRECTORY
-/bin/mkdir $APP_RUNTIME_DIRECTORY
-/bin/mkdir $APP_BINARY_DIRECTORY
-/bin/mkdir $APP_KEYSTORE_DIRECTORY
-/bin/mkdir $APP_CAMERA_DIRECTORY
-/bin/mkdir $APP_STORAGE_DIRECTORY
+/bin/sudo -u $APP_USER -H sh -c "/bin/mkdir $APP_USER_HOME_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/mkdir $APP_RUNTIME_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/mkdir $APP_BINARY_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/mkdir $APP_KEYSTORE_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/mkdir $APP_CAMERA_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/mkdir $APP_STORAGE_DIRECTORY"
 
 # clone git repositories
-/usr/bin/git clone $GIT_BINARY_PUBLISHER_LINK
-/usr/bin/git clone $GIT_BINARY_SUBSCRIBER_LINK
+/bin/sudo -u $APP_USER -H sh -c "/usr/bin/git clone $GIT_BINARY_PUBLISHER_LINK -C $APP_USER_HOME_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/usr/bin/git clone $GIT_BINARY_SUBSCRIBER_LINK -C $APP_USER_HOME_DIRECTORY"
 
 # copy binary files from git repository to app directory
-/bin/cp $GIT_BINARY_SUBSCRIBER $APP_BINARY_DIRECTORY
-/bin/cp $GIT_BINARY_PUBLISHER $APP_BINARY_DIRECTORY
-/bin/cp $GIT_BINARY_SUBSCRIBER_SERVICE $APP_BINARY_DIRECTORY
-/bin/cp $GIT_BINARY_PUBLISHER_SERVICE $APP_BINARY_DIRECTORY
+/bin/sudo -u $APP_USER -H sh -c "/bin/cp $GIT_BINARY_SUBSCRIBER $APP_BINARY_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/cp $GIT_BINARY_PUBLISHER $APP_BINARY_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/cp $GIT_BINARY_SUBSCRIBER_SERVICE $APP_BINARY_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/cp $GIT_BINARY_PUBLISHER_SERVICE $APP_BINARY_DIRECTORY"
 
 ### create and copy binary files
 # create file not needed due to > operators functionality (creates the file)
@@ -125,20 +122,20 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 #/bin/touch $APP_BINARY_PUBLISHER_START
 
 # load file
-/bin/echo $APP_BINARY_PUBLISHER_START_SCRIPT > $APP_BINARY_PUBLISHER_START # maybe wrong operator
-/bin/echo $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START
+/bin/sudo -u $APP_USER -H sh -c "/bin/echo $APP_BINARY_PUBLISHER_START_SCRIPT > $APP_BINARY_PUBLISHER_START" # maybe wrong operator
+/bin/sudo -u $APP_USER -H sh -c "/bin/echo $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START"
 
 # turn shell files into binaries
-/usr/bin/shc -f $APP_BINARY_PUBLISHER_START -o $APP_BINARY_PUBLISHER_START_ACTUAL
-/usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START -o $APP_BINARY_SUBSCRIBER_START_ACTUAL
+/bin/sudo -u $APP_USER -H sh -c "/usr/bin/shc -f $APP_BINARY_PUBLISHER_START -o $APP_BINARY_PUBLISHER_START_ACTUAL"
+/bin/sudo -u $APP_USER -H sh -c "/usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START -o $APP_BINARY_SUBSCRIBER_START_ACTUAL"
 
 # move binary shell files to /usr/bin/
-/bin/mv $APP_BINARY_PUBLISHER_START_ACTUAL "/usr/bin/${APP_BINARY_PUBLISHER_START_FILENAME}"
-/bin/mv $APP_BINARY_SUBSCRIBER_START_ACTUAL "/usr/bin/${APP_BINARY_SUBSCRIBER_START_FILENAME}"
+/bin/sudo -u $APP_USER -H sh -c "/bin/mv $APP_BINARY_PUBLISHER_START_ACTUAL "/usr/bin/${APP_BINARY_PUBLISHER_START_FILENAME}"
+/bin/sudo -u $APP_USER -H sh -c "/bin/mv $APP_BINARY_SUBSCRIBER_START_ACTUAL "/usr/bin/${APP_BINARY_SUBSCRIBER_START_FILENAME}"
 
 ### move service files to system.d
-/bin/cp $APP_BINARY_SUBSCRIBER_SERVICE $SERVICE_FILES_DIRECTORY
-/bin/cp $APP_BINARY_PUBLISHER_SERVICE $SERVICE_FILES_DIRECTORY
+/bin/sudo -u $APP_USER -H sh -c "/bin/cp $APP_BINARY_SUBSCRIBER_SERVICE $SERVICE_FILES_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/bin/cp $APP_BINARY_PUBLISHER_SERVICE $SERVICE_FILES_DIRECTORY"
 
 ### echo user password
 echo $APP_USER_PASSWORD_PLAIN_TEXT
