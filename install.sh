@@ -107,8 +107,8 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/sudo -u $APP_USER -H sh -c "/bin/mkdir $APP_STORAGE_DIRECTORY"
 
 # clone git repositories
-/bin/sudo -u $APP_USER -H sh -c "/usr/bin/git clone $GIT_BINARY_PUBLISHER_LINK -C $APP_USER_HOME_DIRECTORY"
-/bin/sudo -u $APP_USER -H sh -c "/usr/bin/git clone $GIT_BINARY_SUBSCRIBER_LINK -C $APP_USER_HOME_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/usr/bin/git clone $GIT_BINARY_PUBLISHER_LINK $APP_USER_HOME_DIRECTORY"
+/bin/sudo -u $APP_USER -H sh -c "/usr/bin/git clone $GIT_BINARY_SUBSCRIBER_LINK $APP_USER_HOME_DIRECTORY"
 
 # copy binary files from git repository to app directory
 /bin/sudo -u $APP_USER -H sh -c "/bin/cp $GIT_BINARY_SUBSCRIBER $APP_BINARY_DIRECTORY"
