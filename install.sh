@@ -47,20 +47,20 @@ APP_USER_PRIV_SUDOERS_STRING="dirpic     JAVA=(JAVA:JAVA) JAVA"
 GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
 GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
 
-GIT_BINARY_SUBSCRIBER="/home/dirpic/dirPicPublisher/jar/dirPicSubscriber.jar"
-GIT_BINARY_PUBLISHER="/home/dirpic/dirPicPublisher/jar/dirPicPublisher.jar"
+GIT_BINARY_SUBSCRIBER="/home/dirpic/dirPicPublisher/jars/dirPicSubscriber.jar"
+GIT_BINARY_PUBLISHER="/home/dirpic/dirPicPublisher/jars/dirPicPublisher.jar"
 
-GIT_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/service/subscriber.service"
-GIT_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/service/publisher.service"
+GIT_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/service/dirpicsubscriber.service"
+GIT_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/service/dirpicpublisher.service"
 
 APP_BINARY_SUBSCRIBER="/home/dirpic/binaries/startDirPicSubscriber.jar"
 APP_BINARY_PUBLISHER="/home/dirpic/binaries/startDirPicPublisher.jar"
 
-APP_BINARY_SUBSCRIBER_START="/home/dirpic/binaries/dirpicsubscriber.sh"
-APP_BINARY_PUBLISHER_START="/home/dirpic/binaries/dirpicpublisher.sh"
+APP_BINARY_SUBSCRIBER_START="/home/dirpic/binaries/dirPicSubscriber.sh"
+APP_BINARY_PUBLISHER_START="/home/dirpic/binaries/dirPicPublisher.sh"
 
-APP_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/service/subscriber.service"
-APP_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/service/publisher.service"
+APP_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/service/dirpicsubscriber.service"
+APP_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/service/dirpicpublisher.service"
 
 SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
 
@@ -130,3 +130,6 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 ### move service files to system.d
 /bin/cp $APP_BINARY_SUBSCRIBER_SERVICE $SERVICE_FILES_DIRECTORY
 /bin/cp $APP_BINARY_PUBLISHER_SERVICE $SERVICE_FILES_DIRECTORY
+
+### echo user password
+echo $APP_USER_PASSWORD_PLAIN_TEXT
