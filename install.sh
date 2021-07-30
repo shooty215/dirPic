@@ -98,6 +98,9 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/sudo /bin/echo $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers # maybe wrong operator
 
 ### create app structure
+# change to app's user 
+/bin/sudo /bin/su $APP_USER
+
 # create directories
 /bin/mkdir $APP_USER_HOME_DIRECTORY
 /bin/mkdir $APP_RUNTIME_DIRECTORY
