@@ -48,7 +48,7 @@ GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
 GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
 
 GIT_BINARY_SUBSCRIBER="/home/dirpic/dirPicPublisher/jar/dirPicSubscriber.jar"
-GIT_BINARY_PUBLISHER="/home/dirpic/dirPicPublisher//jardirPicPublisher.jar"
+GIT_BINARY_PUBLISHER="/home/dirpic/dirPicPublisher/jar/dirPicPublisher.jar"
 
 GIT_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/service/subscriber.service"
 GIT_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/service/publisher.service"
@@ -59,8 +59,8 @@ APP_BINARY_PUBLISHER="/home/dirpic/binaries/startDirPicPublisher.jar"
 APP_BINARY_SUBSCRIBER_START="/home/dirpic/binaries/dirpicsubscriber.sh"
 APP_BINARY_PUBLISHER_START="/home/dirpic/binaries/dirpicpublisher.sh"
 
-APP_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/subscriber.service"
-APP_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/publisher.service"
+APP_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/service/subscriber.service"
+APP_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/service/publisher.service"
 
 SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
 
