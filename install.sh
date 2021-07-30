@@ -120,8 +120,8 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/echo $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START
 
 # turn shell files into binaries
-/usr/bin/shc -T -f $APP_BINARY_PUBLISHER_START
-/usr/bin/shc -T -f $APP_BINARY_SUBSCRIBER_START
+/usr/bin/shc -f $APP_BINARY_PUBLISHER_START
+/usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START
 
 # move binary shell files to /usr/bin/
 /bin/mv "${APP_BINARY_PUBLISHER_START}.x" "/usr/bin/${APP_BINARY_PUBLISHER_START}"
