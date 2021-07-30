@@ -59,6 +59,12 @@ APP_BINARY_PUBLISHER="/home/dirpic/binaries/startDirPicPublisher.jar"
 APP_BINARY_SUBSCRIBER_START="/home/dirpic/binaries/dirPicSubscriber.sh"
 APP_BINARY_PUBLISHER_START="/home/dirpic/binaries/dirPicPublisher.sh"
 
+APP_BINARY_SUBSCRIBER_START_ACTUAL="/home/dirpic/dirPicSubscriber.sh.x"
+APP_BINARY_PUBLISHER_START_ACTUAL="/home/dirpic/dirPicPublisher.sh.x"
+
+APP_BINARY_SUBSCRIBER_START_FILENAME="dirpicsubscriber"
+APP_BINARY_PUBLISHER_START_FILENAME="dirpicpublisher"
+
 APP_BINARY_SUBSCRIBER_SERVICE="/home/dirpic/dirPicSubscriber/service/dirpicsubscriber.service"
 APP_BINARY_PUBLISHER_SERVICE="/home/dirpic/dirPicPublisher/service/dirpicpublisher.service"
 
@@ -120,12 +126,12 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/echo $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START
 
 # turn shell files into binaries
-/usr/bin/shc -f $APP_BINARY_PUBLISHER_START
-/usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START
+/usr/bin/shc -f $APP_BINARY_PUBLISHER_START -o $APP_BINARY_PUBLISHER_START_ACTUAL
+/usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START -o $APP_BINARY_SUBSCRIBER_START_ACTUAL
 
 # move binary shell files to /usr/bin/
-/bin/mv "${APP_BINARY_PUBLISHER_START}.x" "/usr/bin/${APP_BINARY_PUBLISHER_START}"
-/bin/mv "${APP_BINARY_SUBSCRIBER_START}.x" "/usr/bin/${APP_BINARY_SUBSCRIBER_START}"
+/bin/mv $APP_BINARY_PUBLISHER_START_ACTUAL "/usr/bin/${APP_BINARY_PUBLISHER_START_FILENAME}"
+/bin/mv $APP_BINARY_SUBSCRIBER_START_ACTUAL "/usr/bin/${APP_BINARY_SUBSCRIBER_START_FILENAME}"
 
 ### move service files to system.d
 /bin/cp $APP_BINARY_SUBSCRIBER_SERVICE $SERVICE_FILES_DIRECTORY
