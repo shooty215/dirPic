@@ -89,7 +89,7 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/sudo usermod -a -G /bin/sudo $APP_USER
 
 # modify app user's sudo privs, restricting it to only use /bin/java in sudo context
-/bin/sudo /bin/echo APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers # maybe wrong operator
+/bin/sudo /bin/echo $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers # maybe wrong operator
 
 ### create app structure
 # create directories
