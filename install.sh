@@ -88,11 +88,11 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 "
 
 ### create user
-/bin/sudo /bin/useradd -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
+/bin/sudo /usr/sbin/useradd -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
 
 ### make app user sudoer only for /bin/java
 # add app user to sudo group in /etc/group
-/bin/sudo usermod -a -G /bin/sudo $APP_USER
+/bin/sudo /usr/sbin/usermod -a -G /bin/sudo $APP_USER
 
 # modify app user's sudo privs, restricting it to only use /bin/java in sudo context
 /bin/sudo /bin/echo $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers # maybe wrong operator
