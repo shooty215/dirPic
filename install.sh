@@ -89,7 +89,7 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/sudo usermod -a -G /bin/sudo $APP_USER
 
 # modify app user's sudo privs, restricting it to only use /bin/java in sudo context
-/bin/sudo /bin/echo APP_USER_PRIV_SUDOERS_STRING > /etc/sudoers # maybe wrong operator
+/bin/sudo /bin/echo APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers # maybe wrong operator
 
 ### create app structure
 # create directories
@@ -111,13 +111,13 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /bin/cp $GIT_BINARY_PUBLISHER_SERVICE $APP_BINARY_DIRECTORY
 
 ### create and copy binary files
-# create file
-/bin/touch $APP_BINARY_SUBSCRIBER_START
-/bin/touch $APP_BINARY_PUBLISHER_START
+# create file not needed due to > operators functionality (creates the file)
+#/bin/touch $APP_BINARY_SUBSCRIBER_START
+#/bin/touch $APP_BINARY_PUBLISHER_START
 
 # load file
-/bin/echo $APP_BINARY_PUBLISHER_START_SCRIPT >> $APP_BINARY_PUBLISHER_START # maybe wrong operator
-/bin/echo $APP_BINARY_SUBSCRIBER_START_SCRIPT >> $APP_BINARY_SUBSCRIBER_START
+/bin/echo $APP_BINARY_PUBLISHER_START_SCRIPT > $APP_BINARY_PUBLISHER_START # maybe wrong operator
+/bin/echo $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START
 
 # turn shell files into binaries
 /usr/bin/shc -T -f $APP_BINARY_PUBLISHER_START
