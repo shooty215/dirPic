@@ -21,6 +21,7 @@ APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL:ALL) ALL"
 # directories
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
 APP_ENV_ROOT_DIRECTORY=$APP_USER_HOME_DIRECTORY"root/"
+APP_ENV_DIRECTORY=$APP_USER_HOME_DIRECTORY"env/"
 APP_TMP_DIRECTORY=$APP_USER_HOME_DIRECTORY"tmp/"
 APP_RUNTIME_DIRECTORY=$APP_USER_HOME_DIRECTORY"runtime/"
 APP_KEYSTORE_DIRECTORY=$APP_USER_HOME_DIRECTORY"keystores/"
@@ -86,6 +87,7 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 # create directories
 /usr/bin/sudo /bin/mkdir $APP_USER_HOME_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_ENV_ROOT_DIRECTORY
+/usr/bin/sudo /bin/mkdir $APP_ENV_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_TMP_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_RUNTIME_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_BINARY_DIRECTORY
@@ -133,18 +135,18 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /usr/bin/sudo /bin/chgrp -R dirpic /home/dirpic/
 
 # binaries
-/usr/bin/sudo /bin/chown -R dirpic /usr/bin/dirpicpublisher
-/usr/bin/sudo /bin/chown -R dirpic /usr/bin/dirpicsubscriber
+#/usr/bin/sudo /bin/chown -R dirpic /usr/bin/dirpicpublisher
+#/usr/bin/sudo /bin/chown -R dirpic /usr/bin/dirpicsubscriber
 
-/usr/bin/sudo /bin/chgrp -R dirpic /usr/bin/dirpicpublisher
-/usr/bin/sudo /bin/chgrp -R dirpic /usr/bin/dirpicsubscriber
+#/usr/bin/sudo /bin/chgrp -R dirpic /usr/bin/dirpicpublisher
+#/usr/bin/sudo /bin/chgrp -R dirpic /usr/bin/dirpicsubscriber
 
 # services
-/usr/bin/sudo /bin/chown -R dirpic $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
-/usr/bin/sudo /bin/chown -R dirpic $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
+#/usr/bin/sudo /bin/chown -R dirpic $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
+#/usr/bin/sudo /bin/chown -R dirpic $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
 
-/usr/bin/sudo /bin/chgrp -R dirpic $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
-/usr/bin/sudo /bin/chgrp -R dirpic $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
+#/usr/bin/sudo /bin/chgrp -R dirpic $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
+#/usr/bin/sudo /bin/chgrp -R dirpic $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
 
 ### echo user password into file
 /usr/bin/sudo /bin/echo $APP_USER_PASSWORD_PLAIN_TEXT'\n'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
