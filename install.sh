@@ -9,6 +9,8 @@
 # 5# create app structure
 # 6# create and copy binary files 
 # 7# move service files to system.d
+# 8# echo user credentials into file
+# 9# enable services
 
 
 ### recieve script's parameters and initialize magic variables
@@ -16,7 +18,7 @@
 APP_USER="dirpic"
 APP_USER_PASSWORD_PLAIN_TEXT=$(/usr/bin/openssl rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
 APP_USER_PASSWORD_SHA256_HASH=$(/usr/bin/openssl passwd -5 "$APP_USER_PASSWORD_PLAIN_TEXT")
-APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL:ALL) ALL"
+APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:ALL"
 
 # directories
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
@@ -75,7 +77,7 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 
 ### create user
 /usr/bin/sudo /usr/sbin/useradd -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
-
+#/usr/bin/sudo /usr/sbin/useradd -r -m
 ### make app user sudoer only for /bin/java
 # add app user to sudo group in /etc/group
 /usr/bin/sudo /usr/sbin/usermod -a -G sudo $APP_USER
@@ -86,10 +88,10 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 ### create app structure
 # create directories
 /usr/bin/sudo /bin/mkdir $APP_USER_HOME_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_ENV_ROOT_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_ENV_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_TMP_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_RUNTIME_DIRECTORY
+#/usr/bin/sudo /bin/mkdir $APP_ENV_ROOT_DIRECTORY
+#/usr/bin/sudo /bin/mkdir $APP_ENV_DIRECTORY
+#/usr/bin/sudo /bin/mkdir $APP_TMP_DIRECTORY
+#/usr/bin/sudo /bin/mkdir $APP_RUNTIME_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_BINARY_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_KEYSTORE_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_CAMERA_DIRECTORY
@@ -134,19 +136,9 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /usr/bin/sudo /bin/chown -R dirpic /home/dirpic/
 /usr/bin/sudo /bin/chgrp -R dirpic /home/dirpic/
 
-# binaries
-#/usr/bin/sudo /bin/chown -R dirpic /usr/bin/dirpicpublisher
-#/usr/bin/sudo /bin/chown -R dirpic /usr/bin/dirpicsubscriber
-
-#/usr/bin/sudo /bin/chgrp -R dirpic /usr/bin/dirpicpublisher
-#/usr/bin/sudo /bin/chgrp -R dirpic /usr/bin/dirpicsubscriber
-
-# services
-#/usr/bin/sudo /bin/chown -R dirpic $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
-#/usr/bin/sudo /bin/chown -R dirpic $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
-
-#/usr/bin/sudo /bin/chgrp -R dirpic $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
-#/usr/bin/sudo /bin/chgrp -R dirpic $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
-
 ### echo user password into file
-/usr/bin/sudo /bin/echo $APP_USER_PASSWORD_PLAIN_TEXT'\n'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
+/usr/bin/sudo /bin/echo $APP_USER_PASSWORD_PLAIN_TEXT'|:::::|'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
+
+### enable services
+/usr/bin/sudo /bin/systemctl enable $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
+/usr/bin/sudo /bin/systemctl enable $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'

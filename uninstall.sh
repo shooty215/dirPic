@@ -4,6 +4,14 @@ APP_USER_PRIV_SUDOERS_STRING="dirpic"
 
 SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
 
+### stop services
+/usr/bin/sudo /bin/systemctl stop dirpicpublisher.service
+/usr/bin/sudo /bin/systemctl stop dirpicsubscriber.service
+
+### disable services
+/usr/bin/sudo /bin/systemctl disable $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
+/usr/bin/sudo /bin/systemctl disable $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
+
 ### delete app user from system
 sudo userdel $APP_USER
 
