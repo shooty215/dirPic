@@ -18,7 +18,7 @@
 APP_USER="dirpic"
 APP_USER_PASSWORD_PLAIN_TEXT=$(/usr/bin/openssl rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
 APP_USER_PASSWORD_SHA256_HASH=$(/usr/bin/openssl passwd -5 "$APP_USER_PASSWORD_PLAIN_TEXT")
-APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:ALL"
+APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:/usr/bin/java"
 
 # directories
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
