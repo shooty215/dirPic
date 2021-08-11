@@ -139,16 +139,6 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /usr/bin/sudo /bin/cp client_crt.pem /home/dirpic/keystores/client_crt.pem
 /usr/bin/sudo /bin/cp client_key.pem /home/dirpic/keystores/client_key.pem
 
-# remove all used and now unnecessary files
-/usr/bin/sudo /bin/rm -rf caClient.key
-/usr/bin/sudo /bin/rm -rf caClient.crt
-/usr/bin/sudo /bin/rm -rf client.key
-/usr/bin/sudo /bin/rm -rf client.csr
-/usr/bin/sudo /bin/rm -rf client.crt
-/usr/bin/sudo /bin/rm -rf caClient_crt.pem
-/usr/bin/sudo /bin/rm -rf client_crt.pem
-/usr/bin/sudo /bin/rm -rf client_key.pem
-
 ### set privs, ownership and group of app user's home directory, the service and the binary files
 # maybe not the service and the binary files
 # home directory
