@@ -30,10 +30,6 @@ BROKER_USER_PASSWORD=$5
 
 CA_PASSWORD=$6
 
-### stop services
-/usr/bin/sudo systemctl stop dirpicsubscriber.service
-/usr/bin/sudo systemctl stop dirpicpublisher.service
-
 ### create file strings
 APP_BINARY_SUBSCRIBER_START_SCRIPT="
 #!/bin/bash\n
@@ -60,7 +56,3 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 # move binary shell files to /usr/bin/
 /usr/bin/sudo /bin/mv $APP_BINARY_PUBLISHER_START_ACTUAL /usr/bin/${APP_BINARY_PUBLISHER_START_FILENAME}
 /usr/bin/sudo /bin/mv $APP_BINARY_SUBSCRIBER_START_ACTUAL /usr/bin/${APP_BINARY_SUBSCRIBER_START_FILENAME}
-
-### start services
-/usr/bin/sudo systemctl start dirpicsubscriber.service
-/usr/bin/sudo systemctl start dirpicpublisher.service

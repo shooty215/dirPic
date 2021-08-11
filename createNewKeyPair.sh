@@ -1,9 +1,5 @@
 #!/bin/bash
 
-### stop services
-/usr/bin/sudo systemctl stop dirpicsubscriber.service
-/usr/bin/sudo systemctl stop dirpicpublisher.service
-
 ### create client key and certificate
 # create ca key
 /usr/bin/openssl genrsa -des3 -out caClient.key 2048
@@ -39,7 +35,3 @@
 /usr/bin/sudo /bin/rm -rf caClient_crt.pem
 /usr/bin/sudo /bin/rm -rf client_crt.pem
 /usr/bin/sudo /bin/rm -rf client_key.pem
-
-### start services
-/usr/bin/sudo systemctl start dirpicsubscriber.service
-/usr/bin/sudo systemctl start dirpicpublisher.service
