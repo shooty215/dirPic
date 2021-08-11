@@ -9,8 +9,9 @@
 # 5# create app structure
 # 6# create and copy binary files 
 # 7# move service files to system.d
-# 8# echo user credentials into file
-# 9# enable services
+# 8# copy ca, client crt and key
+# 9# echo user credentials into file
+#10# enable services
 
 
 ### recieve script's parameters and initialize magic variables
@@ -132,9 +133,13 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 /usr/bin/sudo /bin/cp $APP_BINARY_SUBSCRIBER_SERVICE $SERVICE_FILES_DIRECTORY
 /usr/bin/sudo /bin/cp $APP_BINARY_PUBLISHER_SERVICE $SERVICE_FILES_DIRECTORY
 
+### copy ca, client crt and key
+/usr/bin/sudo /bin/cp ./ca_crt.pem /home/dirpic/keystores
+/usr/bin/sudo /bin/cp ./client_crt.pem /home/dirpic/keystores
+/usr/bin/sudo /bin/cp ./client_key.pem /home/dirpic/keystores
+
 ### set privs, ownership and group of app user's home directory, the service and the binary files
 # maybe not the service and the binary files
-
 # home directory
 /usr/bin/sudo /bin/chmod -R 750 /home/dirpic/
 /usr/bin/sudo /bin/chown -R dirpic /home/dirpic/
