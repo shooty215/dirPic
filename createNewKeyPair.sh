@@ -18,7 +18,7 @@
 
 # pem encode needed files
 /usr/bin/openssl x509 -in client.crt -out client_crt.pem -outform PEM
-/usr/bin/openssl x509 -in caClient_crt -out caClient_crt.pem -outform PEM
+/usr/bin/openssl x509 -in caClient.crt -out caClient_crt.pem -outform PEM
 /usr/bin/openssl rsa -in client.key -text > client_key.pem
 
 # copy pem files to their destination
@@ -27,11 +27,11 @@
 /usr/bin/sudo /bin/cp client_key.pem /home/dirpic/keystores/client_key.pem
 
 # remove all used and now unnecessary files
-/usr/bin/sudo /bin/rm -rf caClient.key
-/usr/bin/sudo /bin/rm -rf caClient.crt
-/usr/bin/sudo /bin/rm -rf client.key
+#/usr/bin/sudo /bin/rm -rf caClient.key
+#/usr/bin/sudo /bin/rm -rf caClient.crt
+#/usr/bin/sudo /bin/rm -rf client.key
 /usr/bin/sudo /bin/rm -rf client.csr
-/usr/bin/sudo /bin/rm -rf client.crt
-/usr/bin/sudo /bin/rm -rf caClient_crt.pem
-/usr/bin/sudo /bin/rm -rf client_crt.pem
-/usr/bin/sudo /bin/rm -rf client_key.pem
+#/usr/bin/sudo /bin/rm -rf client.crt
+#/usr/bin/sudo /bin/rm -rf caClient_crt.pem
+#/usr/bin/sudo /bin/rm -rf client_crt.pem
+#/usr/bin/sudo /bin/rm -rf client_key.pem
