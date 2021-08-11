@@ -151,7 +151,7 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 
 # pem encode needed files
 /usr/bin/openssl x509 -in client.crt -out client_crt.pem -outform PEM
-/usr/bin/openssl x509 -in ca.crt -out ca_crt.pem -outform PEM
+/usr/bin/openssl x509 -in caClient.crt -out caClient_crt.pem -outform PEM
 /usr/bin/openssl rsa -in client.key -text > client_key.pem
 
 # copy pem files to their destination
