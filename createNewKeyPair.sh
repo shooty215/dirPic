@@ -22,7 +22,6 @@
 /usr/bin/openssl rsa -in client.key -text > client_key.pem
 
 # copy pem files to their destination
-/usr/bin/sudo /bin/cp caClient_crt.pem /home/dirpic/keystores/caClient_crt.pem
 /usr/bin/sudo /bin/cp client_crt.pem /home/dirpic/keystores/client_crt.pem
 /usr/bin/sudo /bin/cp client_key.pem /home/dirpic/keystores/client_key.pem
 

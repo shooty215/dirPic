@@ -2,21 +2,72 @@
 
 Installer repository for the dirPicPublisher and dirPicSubscriber services.
 
-As of now, changing the broker's information takes a full re-install.
+## DESCRIPTION
+
+Delivers a mqtt-publisher/-subscriber and is meant to run with a mqtt-broker, like mosquitto.
+Creates application user with home directory, holding all files and locations.
+The install binaries need tls-keys and motion.conf.
+Added publisher- and subscriber-services start motion automatically, so the camera is essential to run (as of now).
+Broker has to be set with the right authentication and authorization details (ca file and users).
+
+Holds binaries to create tls-keys and -certificates. As well as binaries, updating the broker-information used by the application.
+
+More information can be found in the dirPic.pdf provided by this repository.
 
 What's next:
-    -A way to update broker information without re-installing everything.
+    -Key binaries will get inputs to select algorithm.
+    -App user will be changed to system user.
+    -Motion's deployment within the application is not ideal and probably will be changed in the future.
+    -Code documentation.
+
+## CREATE-NEW-KEYS
+
+Enter information twice, identically!
+
+/usr/bin/sudo /bin/bash createNewKeyPair.sh
 
 ## HOW-TO-INSTALL
 
-run install.sh as privileged user and with according inputs:
+Add motion.conf, ca_cert.pem (server certificate), client_crt.pem and client_key.pem must be added to the repository folder before running install binaries.
+
+Run install.sh as privileged user and with according inputs:
 
 /usr/bin/sudo /bin/bash install.sh [$1:BROKER_IP] [$2:BROKER_PORT] [$3:BROKER_CHANNEL] [$4:BROKER_USER] [$5:BROKER_USER_PASSWORD] [$6:CA_PASSWORD]
 
-ca_cert.pem (server certificate), client_crt.pem and client_key.pem must be added to the repository folder manually!
+HINTS:
+    -Before installing you may want to change the folders used. Just change the install.sh to your liking.
+    -If you wish to run the camera with a different program than motion, delete the motion references from the
+     install.sh/updateBrokerInformation.sh.
 
 ## HOW-TO-UNINSTALL
 
-run uninstall.sh as privileged user
+Run uninstall.sh as privileged user
 
 /usr/bin/sudo /bin/bash uninstall.sh
+
+## ENABLE-SPECIFIC-SERVICE
+
+/usr/bin/sudo /bin/bash enablePub.sh
+
+/usr/bin/sudo /bin/bash enableSub.sh
+
+## HANDLE-SERVICES
+
+## START-SERVICE
+
+/usr/bin/sudo /usr/bin/systemctl start dirpicsubscriber.service
+/usr/bin/sudo /usr/bin/systemctl start dirpicpublisher.service
+
+## STOP-SERVICE
+
+/usr/bin/sudo /usr/bin/systemctl stop dirpicsubscriber.service
+/usr/bin/sudo /usr/bin/systemctl stop dirpicpublisher.service
+
+## SERVICE-STATUS
+
+/usr/bin/sudo /usr/bin/systemctl status dirpicsubscriber.service
+/usr/bin/sudo /usr/bin/systemctl status dirpicpublisher.service
+
+## UPDATE-BROKER-INFORMATION
+
+/usr/bin/sudo /bin/bash updateBrokerInformation.sh [$1:BROKER_IP] [$2:BROKER_PORT] [$3:BROKER_CHANNEL] [$4:BROKER_USER] [$5:BROKER_USER_PASSWORD] [$6:CA_PASSWORD]
