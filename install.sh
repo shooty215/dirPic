@@ -20,7 +20,7 @@
 APP_USER="dirpic"
 APP_USER_PASSWORD_PLAIN_TEXT=$(/usr/bin/openssl rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
 APP_USER_PASSWORD_SHA256_HASH=$(/usr/bin/openssl passwd -5 "$APP_USER_PASSWORD_PLAIN_TEXT")
-APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:/usr/bin/java"
+APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:/usr/bin/java, /usr/local/bin/motion"
 
 # directories
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
@@ -78,7 +78,7 @@ APP_BINARY_SUBSCRIBER_START_SCRIPT="
 "
 APP_BINARY_PUBLISHER_START_SCRIPT="
 #!/bin/bash\n
-/usr/bin/sudo /usr/bin/motion -b -c /home/dirpic/motion.conf\n
+/usr/bin/sudo /usr/local/bin/motion -c /home/dirpic/motion.conf\n
 /usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_CAMERA_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
 "
 
