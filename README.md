@@ -15,6 +15,7 @@ Holds binaries to create tls-keys and -certificates. As well as binaries, updati
 More information can be found in the dirPic.pdf provided by this repository.
 
 What's next:
+    -Documentation pdf coming soon.
     -Key binaries will get inputs to select algorithm.
     -App user will be changed to system user.
     -Motion's deployment within the application is not ideal and probably will be changed in the future.

@@ -21,10 +21,6 @@
 /usr/bin/openssl x509 -in caClient.crt -out caClient_crt.pem -outform PEM
 /usr/bin/openssl rsa -in client.key -text > client_key.pem
 
-# copy pem files to their destination
-/usr/bin/sudo /bin/cp client_crt.pem /home/dirpic/keystores/client_crt.pem
-/usr/bin/sudo /bin/cp client_key.pem /home/dirpic/keystores/client_key.pem
-
 # remove all used and now unnecessary files
 #/usr/bin/sudo /bin/rm -rf caClient.key
 #/usr/bin/sudo /bin/rm -rf caClient.crt

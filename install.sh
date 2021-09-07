@@ -2,6 +2,7 @@
 
 #       inputs: [$1:BROKER_IP] [$2:BROKER_PORT] [$3:BROKER_CHANNEL]   #
 #               [$4:BROKER_USER] [$5:BROKER_USER_PASSWORD]            #
+#               [$6:KEY_PASSWORD]                                     #
 # 1# recieve script's parameters and initialize magic variables
 # 2# create file strings
 # 3# create user
@@ -136,7 +137,6 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 
 # copy pem files to their destination
 /usr/bin/sudo /bin/cp ca_crt.pem /home/dirpic/keystores/ca_crt.pem
-/usr/bin/sudo /bin/cp caClient_crt.pem /home/dirpic/keystores/caClient_crt.pem
 /usr/bin/sudo /bin/cp client_crt.pem /home/dirpic/keystores/client_crt.pem
 /usr/bin/sudo /bin/cp client_key.pem /home/dirpic/keystores/client_key.pem
 
@@ -149,4 +149,3 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 
 ### echo user password into file
 /usr/bin/sudo /bin/echo $APP_USER_PASSWORD_PLAIN_TEXT'|:::::|'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
-
