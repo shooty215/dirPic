@@ -36,7 +36,7 @@ APP_BINARY_SUBSCRIBER_START_SCRIPT="
 "
 APP_BINARY_PUBLISHER_START_SCRIPT="
 #!/bin/bash\n
-/usr/bin/sudo /usr/bin/motion -b -c /dirpic/motion.conf\n
+/usr/bin/sudo /usr/bin/motion -b -c /home/dirpic/motion.conf\n
 /usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_CAMERA_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD
 "
 
