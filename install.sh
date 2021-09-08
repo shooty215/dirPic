@@ -17,14 +17,17 @@
 
 ### recieve script's parameters and initialize magic variables
 # progress notifications
-PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS = "Binding services' starting file contents!\n"
-PROGRESS_NOTIFICATION_CREATE_USER = "Creating user!\n"
-PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY = "Creating entry in sudoers file!\n"
-PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES = "Cloning subscriber's and publisher's git repositories!\n"
-PROGRESS_NOTIFICATION_CREATE_BINARIES = "Creating services' binary files!\n"
-PROGRESS_NOTIFICATION_MOVE_FILES = "Moving all relevant key, certificate, config and binary files!\n"
-PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER = "Giving application's folder to application's user!\n"
-PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS = "Creating file with application's user credentials (in /home/dirpic/encrypt)!\n"
+PROGRESS_START = "Installing dirPic!"
+PROGRESS_END = "dirPic installed - check output above for errors!"
+PROGRESS_LIMITER = ""
+PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS = "Binding services' starting file contents!"
+PROGRESS_NOTIFICATION_CREATE_USER = "Creating user!"
+PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY = "Creating entry in sudoers file!"
+PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES = "Cloning subscriber's and publisher's git repositories!"
+PROGRESS_NOTIFICATION_CREATE_BINARIES = "Creating services' binary files!"
+PROGRESS_NOTIFICATION_MOVE_FILES = "Moving all relevant key, certificate, config and binary files!"
+PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER = "Giving application's folder to application's user!"
+PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS = "Creating file with application's user credentials (in /home/dirpic/encrypt)!"
 
 # app user information
 APP_USER="dirpic"
@@ -79,36 +82,55 @@ BROKER_USER=$4
 BROKER_USER_PASSWORD=$5
 
 # ca password
-
 CA_PASSWORD=$6
 
-### create file strings
+# progress notification
+echo $PROGRESS_START
+echo $PROGRESS_LIMITER
+
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS
+echo $PROGRESS_LIMITER
+
+### create file strings
 APP_BINARY_SUBSCRIBER_START_SCRIPT="
 #!/bin/bash\n
 /usr/bin/sudo /usr/bin/java -jar $APP_BINARY_SUBSCRIBER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_STORAGE_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
 "
 APP_BINARY_PUBLISHER_START_SCRIPT="
 #!/bin/bash\n
-/usr/bin/sudo /usr/local/bin/motion -c /home/dirpic/motion.conf\n
 /usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_CAMERA_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
 "
 
-### create user
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_USER
+echo $PROGRESS_LIMITER
+
+### create user
 /usr/bin/sudo /usr/sbin/useradd -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
 #/usr/bin/sudo /usr/sbin/useradd -r -m
 ### make app user sudoer only for /bin/java
 # add app user to sudo group in /etc/group
 /usr/bin/sudo /usr/sbin/usermod -a -G sudo $APP_USER
 
-# modify app user's sudo privs, restricting it to only use /bin/java in sudo context
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY
+echo $PROGRESS_LIMITER
+
+# modify app user's sudo privs, restricting it to only use /bin/java in sudo context
 /usr/bin/sudo /bin/echo $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers
 
 ### create app structure
-# create directories
+
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_DIRECTORIES
+echo $PROGRESS_LIMITER
+
+# create directories
 /usr/bin/sudo /bin/mkdir $APP_USER_HOME_DIRECTORY
 #/usr/bin/sudo /bin/mkdir $APP_ENV_ROOT_DIRECTORY
 #/usr/bin/sudo /bin/mkdir $APP_ENV_DIRECTORY
@@ -119,8 +141,12 @@ echo $PROGRESS_NOTIFICATION_CREATE_DIRECTORIES
 /usr/bin/sudo /bin/mkdir $APP_CAMERA_DIRECTORY
 /usr/bin/sudo /bin/mkdir $APP_STORAGE_DIRECTORY
 
-## clone git repositories
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
+echo $PROGRESS_LIMITER
+
+## clone git repositories
 /usr/bin/sudo /usr/bin/git -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_PUBLISHER_LINK
 /usr/bin/sudo /usr/bin/git -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_SUBSCRIBER_LINK 
 
@@ -131,8 +157,13 @@ echo $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
 /usr/bin/sudo /bin/cp $GIT_BINARY_PUBLISHER_SERVICE $APP_BINARY_DIRECTORY
 
 ### create and copy binary files
-# create file not needed due to > operators functionality (creates the file)
+
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_BINARIES
+echo $PROGRESS_LIMITER
+
+# create file not needed due to > operators functionality (creates the file)
 /usr/bin/sudo /bin/touch $APP_BINARY_SUBSCRIBER_START
 /usr/bin/sudo /bin/touch $APP_BINARY_PUBLISHER_START
 
@@ -144,7 +175,10 @@ echo $PROGRESS_NOTIFICATION_CREATE_BINARIES
 /usr/bin/sudo /usr/bin/shc -f $APP_BINARY_PUBLISHER_START -o $APP_BINARY_PUBLISHER_START_ACTUAL
 /usr/bin/sudo /usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START -o $APP_BINARY_SUBSCRIBER_START_ACTUAL
 
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_MOVE_FILES
+echo $PROGRESS_LIMITER
 
 # move binary shell files to /usr/bin/
 /usr/bin/sudo /bin/mv $APP_BINARY_PUBLISHER_START_ACTUAL /usr/bin/${APP_BINARY_PUBLISHER_START_FILENAME}
@@ -164,11 +198,25 @@ echo $PROGRESS_NOTIFICATION_MOVE_FILES
 ### set privs, ownership and group of app user's home directory, the service and the binary files
 # maybe not the service and the binary files
 # home directory
+
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER
+echo $PROGRESS_LIMITER
+
 /usr/bin/sudo /bin/chmod -R 750 /home/dirpic/
 /usr/bin/sudo /bin/chown -R dirpic /home/dirpic/
 /usr/bin/sudo /bin/chgrp -R dirpic /home/dirpic/
 
 ### echo user password into file
+
+# progress notification
+echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS
+echo $PROGRESS_LIMITER
+
 /usr/bin/sudo /bin/echo $APP_USER_PASSWORD_PLAIN_TEXT'|:::::|'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
+
+# progress notification
+echo $PROGRESS_LIMITER
+echo $PROGRESS_END
