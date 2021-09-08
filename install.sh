@@ -19,7 +19,7 @@
 # progress notifications
 PROGRESS_START = "Installing dirPic!"
 PROGRESS_END = "dirPic installed - check output above for errors!"
-PROGRESS_LIMITER = ""
+PROGRESS_LIMITER = " "
 PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS = "Binding services' starting file contents!"
 PROGRESS_NOTIFICATION_CREATE_USER = "Creating user!"
 PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY = "Creating entry in sudoers file!"
