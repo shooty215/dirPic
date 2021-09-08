@@ -17,17 +17,17 @@
 
 ### recieve script's parameters and initialize magic variables
 # progress notifications
-PROGRESS_START = "Installing dirPic!"
-PROGRESS_END = "dirPic installed - check output above for errors!"
-PROGRESS_LIMITER = " "
-PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS = "Binding services' starting file contents!"
-PROGRESS_NOTIFICATION_CREATE_USER = "Creating user!"
-PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY = "Creating entry in sudoers file!"
-PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES = "Cloning subscriber's and publisher's git repositories!"
-PROGRESS_NOTIFICATION_CREATE_BINARIES = "Creating services' binary files!"
-PROGRESS_NOTIFICATION_MOVE_FILES = "Moving all relevant key, certificate, config and binary files!"
-PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER = "Giving application's folder to application's user!"
-PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS = "Creating file with application's user credentials (in /home/dirpic/encrypt)!"
+PROGRESS_START="Installing dirPic!"
+PROGRESS_END="dirPic installed - check output above for errors!"
+PROGRESS_LIMITER=" "
+PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS="Binding services' starting file contents!"
+PROGRESS_NOTIFICATION_CREATE_USER="Creating user!"
+PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY="Creating entry in sudoers file!"
+PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES="Cloning subscriber's and publisher's git repositories!"
+PROGRESS_NOTIFICATION_CREATE_BINARIES="Creating services' binary files!"
+PROGRESS_NOTIFICATION_MOVE_FILES="Moving all relevant key, certificate, config and binary files!"
+PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER="Giving application's folder to application's user!"
+PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS="Creating file with application's user credentials (in /home/dirpic/encrypt)!"
 
 # app user information
 APP_USER="dirpic"
