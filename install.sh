@@ -20,15 +20,15 @@
 PROGRESS_START="Installing dirPic!"
 PROGRESS_END="dirPic installed - check output above for errors!"
 PROGRESS_LIMITER=" "
-PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS="Binding services' starting file contents!"
-PROGRESS_NOTIFICATION_CREATE_USER="Creating user!"
-PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY="Creating entry in sudoers file!"
-PROGRESS_NOTIFICATION_CREATE_DIRECTORIES="Creating structural directories!"
-PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES="Cloning subscriber's and publisher's git repositories!"
-PROGRESS_NOTIFICATION_CREATE_BINARIES="Creating services' binary files!"
-PROGRESS_NOTIFICATION_MOVE_FILES="Moving all relevant key, certificate, config and binary files!"
-PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER="Giving application's folder to application's user!"
-PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS="Creating file with application's user credentials (in /home/dirpic/encrypt)!"
+PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS="Binding services' starting file contents! Errors:"
+PROGRESS_NOTIFICATION_CREATE_USER="Creating user! Errors:"
+PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY="Creating entry in sudoers file! Errors:"
+PROGRESS_NOTIFICATION_CREATE_DIRECTORIES="Creating structural directories! Errors:"
+PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES="Cloning subscriber's and publisher's git repositories:"
+PROGRESS_NOTIFICATION_CREATE_BINARIES="Creating services' binary files! Errors:"
+PROGRESS_NOTIFICATION_MOVE_FILES="Moving all relevant key, certificate, config and binary files! Errors:"
+PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER="Giving application's folder to application's user! Errors:"
+PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS="Creating file with application's user credentials (in /home/dirpic/encrypt)! Errors:"
 
 # app user information
 APP_USER="dirpic"
@@ -143,6 +143,7 @@ echo $PROGRESS_NOTIFICATION_CREATE_DIRECTORIES
 # progress notification
 echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
+echo $PROGRESS_LIMITER
 
 ## clone git repositories
 /usr/bin/sudo /usr/bin/git -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_PUBLISHER_LINK
@@ -191,7 +192,7 @@ echo $PROGRESS_LIMITER
 /usr/bin/sudo /bin/cp client_key.pem /home/dirpic/keystores/client_key.pem
 
 # copy motion config
-/usr/bin/sudo /bin/cp $MOTION_CONFIG /home/dirpic/
+/usr/bin/sudo /bin/cp $MOTION_CONFIG /home/dirpic/motion.conf
 ### set privs, ownership and group of app user's home directory, the service and the binary files
 # maybe not the service and the binary files
 # home directory
