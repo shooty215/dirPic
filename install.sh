@@ -211,5 +211,5 @@ echo $PROGRESS_LIMITER
 /usr/bin/sudo /bin/echo $APP_USER_PASSWORD_PLAIN_TEXT'|:::::|'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
 
 # progress notification
-echo $PROGRESS_LIMITER
 echo $PROGRESS_END
+echo $PROGRESS_LIMITER
