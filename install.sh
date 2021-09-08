@@ -23,6 +23,7 @@ PROGRESS_LIMITER=" "
 PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS="Binding services' starting file contents!"
 PROGRESS_NOTIFICATION_CREATE_USER="Creating user!"
 PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY="Creating entry in sudoers file!"
+PROGRESS_NOTIFICATION_CREATE_DIRECTORIES="Creating entry in sudoers file!"
 PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES="Cloning subscriber's and publisher's git repositories!"
 PROGRESS_NOTIFICATION_CREATE_BINARIES="Creating services' binary files!"
 PROGRESS_NOTIFICATION_MOVE_FILES="Moving all relevant key, certificate, config and binary files!"
@@ -47,7 +48,7 @@ APP_CAMERA_DIRECTORY=$APP_USER_HOME_DIRECTORY"camera/"
 APP_STORAGE_DIRECTORY=$APP_USER_HOME_DIRECTORY"storage/"
 
 # files and hyper links
-MOTION_CONFIG = "~/dirPic/motion.conf"
+MOTION_CONFIG="~/dirPic/motion.conf"
 GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
 GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
 
@@ -85,13 +86,12 @@ BROKER_USER_PASSWORD=$5
 CA_PASSWORD=$6
 
 # progress notification
-echo $PROGRESS_START
 echo $PROGRESS_LIMITER
+echo $PROGRESS_START
 
 # progress notification
 echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS
-echo $PROGRESS_LIMITER
 
 ### create file strings
 APP_BINARY_SUBSCRIBER_START_SCRIPT="
@@ -106,7 +106,6 @@ APP_BINARY_PUBLISHER_START_SCRIPT="
 # progress notification
 echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_USER
-echo $PROGRESS_LIMITER
 
 ### create user
 /usr/bin/sudo /usr/sbin/useradd -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
@@ -118,7 +117,6 @@ echo $PROGRESS_LIMITER
 # progress notification
 echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY
-echo $PROGRESS_LIMITER
 
 # modify app user's sudo privs, restricting it to only use /bin/java in sudo context
 /usr/bin/sudo /bin/echo $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers
@@ -128,7 +126,6 @@ echo $PROGRESS_LIMITER
 # progress notification
 echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CREATE_DIRECTORIES
-echo $PROGRESS_LIMITER
 
 # create directories
 /usr/bin/sudo /bin/mkdir $APP_USER_HOME_DIRECTORY
@@ -142,7 +139,6 @@ echo $PROGRESS_LIMITER
 /usr/bin/sudo /bin/mkdir $APP_STORAGE_DIRECTORY
 
 # progress notification
-echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
 echo $PROGRESS_LIMITER
 
@@ -176,7 +172,6 @@ echo $PROGRESS_LIMITER
 /usr/bin/sudo /usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START -o $APP_BINARY_SUBSCRIBER_START_ACTUAL
 
 # progress notification
-echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_MOVE_FILES
 echo $PROGRESS_LIMITER
 
@@ -200,7 +195,6 @@ echo $PROGRESS_LIMITER
 # home directory
 
 # progress notification
-echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER
 echo $PROGRESS_LIMITER
 
@@ -211,7 +205,6 @@ echo $PROGRESS_LIMITER
 ### echo user password into file
 
 # progress notification
-echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS
 echo $PROGRESS_LIMITER
 
