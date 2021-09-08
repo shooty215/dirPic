@@ -23,7 +23,7 @@ PROGRESS_LIMITER=" "
 PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS="Binding services' starting file contents!"
 PROGRESS_NOTIFICATION_CREATE_USER="Creating user!"
 PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY="Creating entry in sudoers file!"
-PROGRESS_NOTIFICATION_CREATE_DIRECTORIES="Creating entry in sudoers file!"
+PROGRESS_NOTIFICATION_CREATE_DIRECTORIES="Creating structural directories!"
 PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES="Cloning subscriber's and publisher's git repositories!"
 PROGRESS_NOTIFICATION_CREATE_BINARIES="Creating services' binary files!"
 PROGRESS_NOTIFICATION_MOVE_FILES="Moving all relevant key, certificate, config and binary files!"
@@ -34,7 +34,7 @@ PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS="Creating file with application's us
 APP_USER="dirpic"
 APP_USER_PASSWORD_PLAIN_TEXT=$(/usr/bin/openssl rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
 APP_USER_PASSWORD_SHA256_HASH=$(/usr/bin/openssl passwd -5 "$APP_USER_PASSWORD_PLAIN_TEXT")
-APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:/usr/bin/java, /usr/local/bin/motion"
+APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:/usr/bin/java"
 
 # directories
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
@@ -48,7 +48,8 @@ APP_CAMERA_DIRECTORY=$APP_USER_HOME_DIRECTORY"camera/"
 APP_STORAGE_DIRECTORY=$APP_USER_HOME_DIRECTORY"storage/"
 
 # files and hyper links
-MOTION_CONFIG="~/dirPic/motion.conf"
+MOTION_CONFIG="motion.conf"
+
 GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
 GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
 
@@ -110,6 +111,7 @@ echo $PROGRESS_NOTIFICATION_CREATE_USER
 ### create user
 /usr/bin/sudo /usr/sbin/useradd -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
 #/usr/bin/sudo /usr/sbin/useradd -r -m
+
 ### make app user sudoer only for /bin/java
 # add app user to sudo group in /etc/group
 /usr/bin/sudo /usr/sbin/usermod -a -G sudo $APP_USER
@@ -139,8 +141,8 @@ echo $PROGRESS_NOTIFICATION_CREATE_DIRECTORIES
 /usr/bin/sudo /bin/mkdir $APP_STORAGE_DIRECTORY
 
 # progress notification
-echo $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
 echo $PROGRESS_LIMITER
+echo $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
 
 ## clone git repositories
 /usr/bin/sudo /usr/bin/git -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_PUBLISHER_LINK
