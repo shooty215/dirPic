@@ -35,6 +35,15 @@ APP_BINARY_PUBLISHER_START_FILENAME="dirpicpublisher"
 APP_BINARY_SUBSCRIBER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicSubscriber/service/dirpicsubscriber.service"
 APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
 
+# broker information
+BROKER_IP=$1
+BROKER_PORT=$2
+BROKER_CHANNEL=$3
+BROKER_USER=$4
+BROKER_USER_PASSWORD=$5
+
+# ca password
+CA_PASSWORD=$6
 
 # stop service
 /usr/bin/sudo /bin/systemctl stop dirpicsubscriber.service

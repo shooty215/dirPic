@@ -33,6 +33,15 @@ APP_BINARY_PUBLISHER_START_FILENAME="dirpicpublisher"
 APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
 APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
 
+# broker information
+BROKER_IP=$1
+BROKER_PORT=$2
+BROKER_CHANNEL=$3
+BROKER_USER=$4
+BROKER_USER_PASSWORD=$5
+
+# ca password
+CA_PASSWORD=$6
 
 # stop service
 /usr/bin/sudo /bin/systemctl stop dirpicpublisher.service
@@ -59,7 +68,7 @@ APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/di
 APP_BINARY_PUBLISHER_START_SCRIPT="
 #!/bin/bash\n
 /usr/bin/sudo /usr/bin/motion -c /home/dirpic/motion.conf\n
-/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_STORAGE_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
+/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_SUBSCRIBER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_STORAGE_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
 "
 
 ## copy binary files from git repository to app directory
