@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ### set magicz
 APP_USER="dirpic"
 APP_USER_PRIV_SUDOERS_STRING="dirpic"

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ### MAGICZ
 APP_USER="dirpic"
 

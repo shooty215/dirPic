@@ -194,6 +194,7 @@ echo $PROGRESS_LIMITER
 
 # copy motion config
 /usr/bin/sudo /bin/cp $MOTION_CONFIG /home/dirpic/motion.conf
+
 ### set privs, ownership and group of app user's home directory, the service and the binary files
 # maybe not the service and the binary files
 # home directory
