@@ -18,8 +18,6 @@ What's next:
     -Documentation pdf coming soon.
     -Key binaries will get inputs to select algorithm.
     -App user will be changed to system user.
-    -Motion's deployment within the application is not ideal and probably will be changed in the future.
-    -Code documentation.
 
 ## CREATE-NEW-KEYS
 
