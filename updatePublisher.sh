@@ -2,37 +2,20 @@
 APP_USER="dirpic"
 SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
-GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
-GIT_BINARY_PUBLISHER=$APP_USER_HOME_DIRECTORY"dirPicPublisher/jars/dirPicPublisher.jar"
 APP_BINARY_DIRECTORY=$APP_USER_HOME_DIRECTORY"binaries/"
 
 # files and hyper links
 MOTION_CONFIG="motion.conf"
-
 GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
-GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
-
 GIT_BINARY_PUBLISHER=$APP_USER_HOME_DIRECTORY"dirPicPublisher/jars/dirPicPublisher.jar"
-GIT_BINARY_PUBLISHER=$APP_USER_HOME_DIRECTORY"dirPicPublisher/jars/dirPicPublisher.jar"
-
 GIT_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
-GIT_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
-
 APP_BINARY_PUBLISHER=$APP_BINARY_DIRECTORY"dirPicPublisher.jar"
-APP_BINARY_PUBLISHER=$APP_BINARY_DIRECTORY"dirPicPublisher.jar"
-
 APP_BINARY_PUBLISHER_START=$APP_BINARY_DIRECTORY"dirPicPublisher.sh"
-APP_BINARY_PUBLISHER_START=$APP_BINARY_DIRECTORY"dirPicPublisher.sh"
-
 APP_BINARY_PUBLISHER_START_ACTUAL=$APP_USER_HOME_DIRECTORY"dirPicPublisher.sh"
-APP_BINARY_PUBLISHER_START_ACTUAL=$APP_USER_HOME_DIRECTORY"dirPicPublisher.sh"
-
 APP_BINARY_PUBLISHER_START_FILENAME="dirpicpublisher"
-APP_BINARY_PUBLISHER_START_FILENAME="dirpicpublisher"
-
-APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
 APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
 
+### handle script's parameter
 # broker information
 BROKER_IP=$1
 BROKER_PORT=$2
@@ -68,13 +51,12 @@ CA_PASSWORD=$6
 APP_BINARY_PUBLISHER_START_SCRIPT="
 #!/bin/bash\n
 /usr/bin/sudo /usr/bin/motion -c /home/dirpic/motion.conf\n
-/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_SUBSCRIBER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_STORAGE_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
+/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_STORAGE_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
 "
 
 ## copy binary files from git repository to app directory
 /usr/bin/sudo /bin/cp $GIT_BINARY_PUBLISHER $APP_BINARY_DIRECTORY
 /usr/bin/sudo /bin/cp $GIT_BINARY_PUBLISHER_SERVICE $APP_BINARY_DIRECTORY
-#!/bin/bash
 
 ### deploy new service version
 

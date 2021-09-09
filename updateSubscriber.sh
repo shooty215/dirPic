@@ -4,37 +4,20 @@
 APP_USER="dirpic"
 SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
-GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
-GIT_BINARY_SUBSCRIBER=$APP_USER_HOME_DIRECTORY"dirPicSubscriber/jars/dirPicSubscriber.jar"
 APP_BINARY_DIRECTORY=$APP_USER_HOME_DIRECTORY"binaries/"
 
 # files and hyper links
 MOTION_CONFIG="motion.conf"
-
 GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
-GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
-
 GIT_BINARY_SUBSCRIBER=$APP_USER_HOME_DIRECTORY"dirPicSubscriber/jars/dirPicSubscriber.jar"
-GIT_BINARY_PUBLISHER=$APP_USER_HOME_DIRECTORY"dirPicPublisher/jars/dirPicPublisher.jar"
-
 GIT_BINARY_SUBSCRIBER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicSubscriber/service/dirpicsubscriber.service"
-GIT_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
-
 APP_BINARY_SUBSCRIBER=$APP_BINARY_DIRECTORY"dirPicSubscriber.jar"
-APP_BINARY_PUBLISHER=$APP_BINARY_DIRECTORY"dirPicPublisher.jar"
-
 APP_BINARY_SUBSCRIBER_START=$APP_BINARY_DIRECTORY"dirPicSubscriber.sh"
-APP_BINARY_PUBLISHER_START=$APP_BINARY_DIRECTORY"dirPicPublisher.sh"
-
 APP_BINARY_SUBSCRIBER_START_ACTUAL=$APP_USER_HOME_DIRECTORY"dirPicSubscriber.sh"
-APP_BINARY_PUBLISHER_START_ACTUAL=$APP_USER_HOME_DIRECTORY"dirPicPublisher.sh"
-
 APP_BINARY_SUBSCRIBER_START_FILENAME="dirpicsubscriber"
-APP_BINARY_PUBLISHER_START_FILENAME="dirpicpublisher"
-
 APP_BINARY_SUBSCRIBER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicSubscriber/service/dirpicsubscriber.service"
-APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
 
+### handle script's parameters
 # broker information
 BROKER_IP=$1
 BROKER_PORT=$2
