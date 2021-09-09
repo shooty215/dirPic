@@ -76,11 +76,11 @@ Run uninstall.sh as privileged user
 
 ## UPDATE-SUBSCRIBER
 
-/usr/bin/sudo /bin/bash updateSubscriber.sh
+/usr/bin/sudo /bin/bash updateSubscriber.sh [$1:BROKER_IP] [$2:BROKER_PORT] [$3:BROKER_CHANNEL] [$4:BROKER_USER] [$5:BROKER_USER_PASSWORD] [$6:CA_PASSWORD]
 
 ## UPDATE-PUBLISHER
 
-/usr/bin/sudo /bin/bash updatePublisher.sh
+/usr/bin/sudo /bin/bash updatePublisher.sh [$1:BROKER_IP] [$2:BROKER_PORT] [$3:BROKER_CHANNEL] [$4:BROKER_USER] [$5:BROKER_USER_PASSWORD] [$6:CA_PASSWORD]
 
 ## DEPLOY-NEW-PEMS-OR-MOTION-CONFIG
 
