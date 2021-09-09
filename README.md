@@ -57,18 +57,39 @@ Run uninstall.sh as privileged user
 ## START-SERVICE
 
 /usr/bin/sudo /usr/bin/systemctl start dirpicsubscriber.service
+
 /usr/bin/sudo /usr/bin/systemctl start dirpicpublisher.service
 
 ## STOP-SERVICE
 
 /usr/bin/sudo /usr/bin/systemctl stop dirpicsubscriber.service
+
 /usr/bin/sudo /usr/bin/systemctl stop dirpicpublisher.service
 
 ## SERVICE-STATUS
 
 /usr/bin/sudo /usr/bin/systemctl status dirpicsubscriber.service
+
 /usr/bin/sudo /usr/bin/systemctl status dirpicpublisher.service
 
 ## UPDATE-BROKER-INFORMATION
 
 /usr/bin/sudo /bin/bash updateBrokerInformation.sh [$1:BROKER_IP] [$2:BROKER_PORT] [$3:BROKER_CHANNEL] [$4:BROKER_USER] [$5:BROKER_USER_PASSWORD] [$6:CA_PASSWORD]
+
+## UPDATE-SUBSCRIBER
+
+/usr/bin/sudo /bin/bash updateSubscriber.sh
+
+## UPDATE-PUBLISHER
+
+/usr/bin/sudo /bin/bash updatePublisher.sh
+
+## DEPLOY-NEW-PEMS-OR-MOTION-CONFIG
+
+Copy or create new files to/ in repository's folder and run one of the following commands:
+
+/usr/bin/sudo /bin/bash deployNewServerCa.sh
+
+/usr/bin/sudo /bin/bash deployNewKeyPair.sh
+
+/usr/bin/sudo /bin/bash deployNewMotionConfig.sh
