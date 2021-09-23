@@ -74,6 +74,9 @@ APP_BINARY_PUBLISHER_START_FILENAME="dirpicpublisher"
 APP_BINARY_SUBSCRIBER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicSubscriber/service/dirpicsubscriber.service"
 APP_BINARY_PUBLISHER_SERVICE=$APP_USER_HOME_DIRECTORY"dirPicPublisher/service/dirpicpublisher.service"
 
+APP_JSON_PROPERTIES_NAME="properties.json"
+APP_JSON_PROPERTIES_PATH=$APP_USER_HOME_DIRECTORY$APP_JSON_PROPERTIES_NAME
+
 SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
 
 # broker information
@@ -86,6 +89,9 @@ BROKER_USER_PASSWORD=$5
 # ca password
 CA_PASSWORD=$6
 
+# aes gcm 128 bit key
+CA_PASSWORD=$7
+
 # progress notification
 echo $PROGRESS_LIMITER
 echo $PROGRESS_START
@@ -97,13 +103,27 @@ echo $PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS
 ### create file strings
 APP_BINARY_SUBSCRIBER_START_SCRIPT="
 #!/bin/bash\n
-/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_SUBSCRIBER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_STORAGE_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
+/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_SUBSCRIBER $APP_JSON_PROPERTIES_PATH\n
 "
 APP_BINARY_PUBLISHER_START_SCRIPT="
 #!/bin/bash\n
 /usr/bin/sudo /usr/bin/motion -c /home/dirpic/motion.conf\n
-/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $BROKER_IP $BROKER_PORT $BROKER_CHANNEL $APP_CAMERA_DIRECTORY $APP_KEYSTORE_DIRECTORY $BROKER_USER $BROKER_USER_PASSWORD $CA_PASSWORD\n
+/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $APP_JSON_PROPERTIES_PATH\n
 "
+
+APP_JSON_PROPERTIES_SCRIPT='{
+  "brokerIp": "'$BROKER_IP'",
+  "brokerPort": "'$BROKER_PORT'",
+  "channelName": "'$BROKER_CHANNEL'",
+  "cameraPath": "'$APP_CAMERA_DIRECTORY'",
+  "storagePath": "'$BROKER_IP'",
+  "keyStorePath": "'$APP_KEYSTORE_DIRECTORY'",
+  "brokerAuthUser":"'$BROKER_USER'",
+  "brokerAuthPassword": "'$BROKER_USER_PASSWORD'",
+  "brokerCertPassword": "'$CA_PASSWORD'",
+  "aesKey": "'$BROKER_IP'"
+}
+'
 
 # progress notification
 echo $PROGRESS_LIMITER
@@ -167,9 +187,13 @@ echo $PROGRESS_LIMITER
 /usr/bin/sudo /bin/touch $APP_BINARY_SUBSCRIBER_START
 /usr/bin/sudo /bin/touch $APP_BINARY_PUBLISHER_START
 
+/usr/bin/sudo /bin/touch $APP_JSON_PROPERTIES_PATH
+
 # load file
 /usr/bin/sudo /bin/echo -e $APP_BINARY_PUBLISHER_START_SCRIPT > $APP_BINARY_PUBLISHER_START
 /usr/bin/sudo /bin/echo -e $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START
+
+/usr/bin/sudo /bin/echo -e $APP_JSON_PROPERTIES_SCRIPT > $APP_JSON_PROPERTIES_PATH
 
 # turn shell files into binaries
 /usr/bin/sudo /usr/bin/shc -f $APP_BINARY_PUBLISHER_START -o $APP_BINARY_PUBLISHER_START_ACTUAL
@@ -188,9 +212,9 @@ echo $PROGRESS_LIMITER
 /usr/bin/sudo /bin/cp $APP_BINARY_PUBLISHER_SERVICE $SERVICE_FILES_DIRECTORY
 
 # copy pem files to their destination
-/usr/bin/sudo /bin/cp ca_crt.pem /home/dirpic/keystores/ca_crt.pem
-/usr/bin/sudo /bin/cp client_crt.pem /home/dirpic/keystores/client_crt.pem
-/usr/bin/sudo /bin/cp client_key.pem /home/dirpic/keystores/client_key.pem
+/usr/bin/sudo /bin/cp ca_crt.pem $APP_KEYSTORE_DIRECTORY"ca_crt.pem"
+/usr/bin/sudo /bin/cp client_crt.pem $APP_KEYSTORE_DIRECTORY"client_crt.pem"
+/usr/bin/sudo /bin/cp client_key.pem $APP_KEYSTORE_DIRECTORY"client_key.pem"
 
 # copy motion config
 /usr/bin/sudo /bin/cp $MOTION_CONFIG /home/dirpic/motion.conf
@@ -203,9 +227,9 @@ echo $PROGRESS_LIMITER
 echo $PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER
 echo $PROGRESS_LIMITER
 
-/usr/bin/sudo /bin/chmod -R 750 /home/dirpic/
-/usr/bin/sudo /bin/chown -R dirpic /home/dirpic/
-/usr/bin/sudo /bin/chgrp -R dirpic /home/dirpic/
+/usr/bin/sudo /bin/chmod -R 750 $APP_USER_HOME_DIRECTORY
+/usr/bin/sudo /bin/chown -R dirpic $APP_USER_HOME_DIRECTORY
+/usr/bin/sudo /bin/chgrp -R dirpic $APP_USER_HOME_DIRECTORY
 
 ### echo user password into file
 
