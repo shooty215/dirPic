@@ -90,7 +90,7 @@ BROKER_USER_PASSWORD=$5
 CA_PASSWORD=$6
 
 # aes gcm 128 bit key
-CA_PASSWORD=$7
+AES_KEY=$7
 
 # progress notification
 echo $PROGRESS_LIMITER
@@ -121,7 +121,7 @@ APP_JSON_PROPERTIES_SCRIPT='{
   "brokerAuthUser":"'$BROKER_USER'",
   "brokerAuthPassword": "'$BROKER_USER_PASSWORD'",
   "brokerCertPassword": "'$CA_PASSWORD'",
-  "aesKey": "'$BROKER_IP'"
+  "aesKey": "'$AES_KEY'"
 }
 '
 
