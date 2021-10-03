@@ -14,6 +14,24 @@
 # 9# echo user credentials into file
 #10# enable services
 
+# cmds
+OPENSSL="/usr/bin/openssl"
+SUDO="/usr/bin/sudo"
+REMOVE="/bin/rm"
+ECHO="/bin/echo"
+COPY="/bin/cp"
+MKDIR="/bin/mkdir"
+TOUCH="/bin/touch"
+SHC="/usr/bin/shc"
+MOVE="/bin/mv"
+CHMOD="/bin/chmod"
+CHOWN="/bin/chown"
+CHGRP="/bin/chgrp"
+GIT="/usr/bin/git"
+JAVA="/usr/bin/java"
+MOTION="/usr/bin/motion"
+USERMOD="/usr/sbin/usermod"
+USERADD="/usr/sbin/useradd"
 
 ### recieve script's parameters and initialize magic variables
 # progress notifications
@@ -32,9 +50,13 @@ PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS="Creating file with application's us
 
 # app user information
 APP_USER="dirpic"
-APP_USER_PASSWORD_PLAIN_TEXT=$(/usr/bin/openssl rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
-APP_USER_PASSWORD_SHA256_HASH=$(/usr/bin/openssl passwd -5 "$APP_USER_PASSWORD_PLAIN_TEXT")
-APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:/usr/bin/java, /usr/bin/motion"
+APP_USER_PASSWORD_PLAIN_TEXT=$($OPENSSL rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
+APP_USER_PASSWORD_SHA256_HASH=$($OPENSSL passwd -5 "$APP_USER_PASSWORD_PLAIN_TEXT")
+APP_USER_PRIV_SUDOERS_STRING="dirpic ALL=(ALL) NOPASSWD:/usr/bin/java, $MOTION"
+
+# create new als keys
+
+alsKeys=($(sudo java -jar bin/generateAlsKeys.jar))
 
 # directories
 APP_USER_HOME_DIRECTORY="/home/$APP_USER/"
@@ -48,7 +70,7 @@ APP_CAMERA_DIRECTORY=$APP_USER_HOME_DIRECTORY"camera/"
 APP_STORAGE_DIRECTORY=$APP_USER_HOME_DIRECTORY"storage/"
 
 # files and hyper links
-MOTION_CONFIG="motion.conf"
+MOTION_CONFIG="bin/config/motion.conf"
 
 GIT_BINARY_SUBSCRIBER_LINK="https://github.com/shooty215/dirPicSubscriber.git"
 GIT_BINARY_PUBLISHER_LINK="https://github.com/shooty215/dirPicPublisher.git"
@@ -87,28 +109,31 @@ BROKER_USER=$4
 BROKER_USER_PASSWORD=$5
 
 # ca password
-CA_PASSWORD=$6
+#CA_PASSWORD=$6
 
-# aes gcm 128 bit key
-AES_KEY=$7
+# aes key password
+#AES_KEY_PWD=$7
+
+# rsa keys password
+#RSA_KEY_PWD=$8
 
 # progress notification
-echo $PROGRESS_LIMITER
-echo $PROGRESS_START
+$ECHO $PROGRESS_LIMITER
+$ECHO $PROGRESS_START
 
 # progress notification
-echo $PROGRESS_LIMITER
-echo $PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS
+$ECHO $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_CREATE_FILE_STRINGS
 
 ### create file strings
 APP_BINARY_SUBSCRIBER_START_SCRIPT="
 #!/bin/bash\n
-/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_SUBSCRIBER $APP_JSON_PROPERTIES_PATH\n
+$SUDO $JAVA -jar $APP_BINARY_SUBSCRIBER $APP_JSON_PROPERTIES_PATH\n
 "
 APP_BINARY_PUBLISHER_START_SCRIPT="
 #!/bin/bash\n
-/usr/bin/sudo /usr/bin/motion -c /home/dirpic/motion.conf\n
-/usr/bin/sudo /usr/bin/java -jar $APP_BINARY_PUBLISHER $APP_JSON_PROPERTIES_PATH\n
+$SUDO $MOTION -c /home/dirpic/motion.conf\n
+$SUDO $JAVA -jar $APP_BINARY_PUBLISHER $APP_JSON_PROPERTIES_PATH\n
 "
 
 APP_JSON_PROPERTIES_SCRIPT='{
@@ -118,127 +143,124 @@ APP_JSON_PROPERTIES_SCRIPT='{
   "cameraPath": "'$APP_CAMERA_DIRECTORY'",
   "storagePath": "'$BROKER_IP'",
   "keyStorePath": "'$APP_KEYSTORE_DIRECTORY'",
-  "brokerAuthUser":"'$BROKER_USER'",
-  "brokerAuthPassword": "'$BROKER_USER_PASSWORD'",
-  "brokerCertPassword": "'$CA_PASSWORD'",
-  "aesKey": "'$AES_KEY'"
+  "brokerAuthUser": "'$BROKER_USER'",
+  "rsaPublicKey": "'${alsKeys[0]}'",
+  "rsaPrivateKey": "'${alsKeys[1]}'",
+  "aesKey": "'${alsKeys[2]}'",
 }
 '
 
 # progress notification
-echo $PROGRESS_LIMITER
-echo $PROGRESS_NOTIFICATION_CREATE_USER
+$ECHO $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_CREATE_USER
 
 ### create user
-/usr/bin/sudo /usr/sbin/useradd -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
-#/usr/bin/sudo /usr/sbin/useradd -r -m
+$SUDO $USERADD -p $APP_USER_PASSWORD_SHA256_HASH $APP_USER -r -d $APP_USER_HOME_DIRECTORY
+#$SUDO /usr/sbin/useradd -r -m
 
 ### make app user sudoer only for /bin/java
 # add app user to sudo group in /etc/group
-/usr/bin/sudo /usr/sbin/usermod -a -G sudo $APP_USER
+$SUDO $USERMOD -a -G sudo $APP_USER
 
 # progress notification
-echo $PROGRESS_LIMITER
-echo $PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY
+$ECHO $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_CREATE_SUDOERS_ENTRY
 
 # modify app user's sudo privs, restricting it to only use /bin/java in sudo context
-/usr/bin/sudo /bin/echo $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers
+$SUDO $ECHO $APP_USER_PRIV_SUDOERS_STRING >> /etc/sudoers
 
 ### create app structure
 
 # progress notification
-echo $PROGRESS_LIMITER
-echo $PROGRESS_NOTIFICATION_CREATE_DIRECTORIES
+$ECHO $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_CREATE_DIRECTORIES
 
 # create directories
-/usr/bin/sudo /bin/mkdir $APP_USER_HOME_DIRECTORY
-#/usr/bin/sudo /bin/mkdir $APP_ENV_ROOT_DIRECTORY
-#/usr/bin/sudo /bin/mkdir $APP_ENV_DIRECTORY
-#/usr/bin/sudo /bin/mkdir $APP_TMP_DIRECTORY
-#/usr/bin/sudo /bin/mkdir $APP_RUNTIME_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_BINARY_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_KEYSTORE_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_CAMERA_DIRECTORY
-/usr/bin/sudo /bin/mkdir $APP_STORAGE_DIRECTORY
+$SUDO $MKDIR $APP_USER_HOME_DIRECTORY
+#$SUDO $MKDIR $APP_RUNTIME_DIRECTORY
+$SUDO $MKDIR $APP_BINARY_DIRECTORY
+$SUDO $MKDIR $APP_KEYSTORE_DIRECTORY
+$SUDO $MKDIR $APP_CAMERA_DIRECTORY
+$SUDO $MKDIR $APP_STORAGE_DIRECTORY
 
 # progress notification
-echo $PROGRESS_LIMITER
-echo $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
-echo $PROGRESS_LIMITER
+$ECHO $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_CLONE_GIT_REPOSITORIES
+$ECHO $PROGRESS_LIMITER
 
 ## clone git repositories
-/usr/bin/sudo /usr/bin/git -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_PUBLISHER_LINK
-/usr/bin/sudo /usr/bin/git -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_SUBSCRIBER_LINK 
+$SUDO $GIT -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_PUBLISHER_LINK
+$SUDO $GIT -C $APP_USER_HOME_DIRECTORY clone $GIT_BINARY_SUBSCRIBER_LINK 
 
 ## copy binary files from git repository to app directory
-/usr/bin/sudo /bin/cp $GIT_BINARY_SUBSCRIBER $APP_BINARY_DIRECTORY
-/usr/bin/sudo /bin/cp $GIT_BINARY_PUBLISHER $APP_BINARY_DIRECTORY
-/usr/bin/sudo /bin/cp $GIT_BINARY_SUBSCRIBER_SERVICE $APP_BINARY_DIRECTORY
-/usr/bin/sudo /bin/cp $GIT_BINARY_PUBLISHER_SERVICE $APP_BINARY_DIRECTORY
+$SUDO $COPY $GIT_BINARY_SUBSCRIBER $APP_BINARY_DIRECTORY
+$SUDO $COPY $GIT_BINARY_PUBLISHER $APP_BINARY_DIRECTORY
+$SUDO $COPY $GIT_BINARY_SUBSCRIBER_SERVICE $APP_BINARY_DIRECTORY
+$SUDO $COPY $GIT_BINARY_PUBLISHER_SERVICE $APP_BINARY_DIRECTORY
 
 ### create and copy binary files
 
 # progress notification
-echo $PROGRESS_LIMITER
-echo $PROGRESS_NOTIFICATION_CREATE_BINARIES
-echo $PROGRESS_LIMITER
+$ECHO $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_CREATE_BINARIES
+$ECHO $PROGRESS_LIMITER
 
 # create file not needed due to > operators functionality (creates the file)
-/usr/bin/sudo /bin/touch $APP_BINARY_SUBSCRIBER_START
-/usr/bin/sudo /bin/touch $APP_BINARY_PUBLISHER_START
+$SUDO $TOUCH $APP_BINARY_SUBSCRIBER_START
+$SUDO $TOUCH $APP_BINARY_PUBLISHER_START
 
-/usr/bin/sudo /bin/touch $APP_JSON_PROPERTIES_PATH
+$SUDO $TOUCH $APP_JSON_PROPERTIES_PATH
 
 # load file
-/usr/bin/sudo /bin/echo -e $APP_BINARY_PUBLISHER_START_SCRIPT > $APP_BINARY_PUBLISHER_START
-/usr/bin/sudo /bin/echo -e $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START
+$SUDO $ECHO -e $APP_BINARY_PUBLISHER_START_SCRIPT > $APP_BINARY_PUBLISHER_START
+$SUDO $ECHO -e $APP_BINARY_SUBSCRIBER_START_SCRIPT > $APP_BINARY_SUBSCRIBER_START
 
-/usr/bin/sudo /bin/echo -e $APP_JSON_PROPERTIES_SCRIPT > $APP_JSON_PROPERTIES_PATH
+$SUDO $ECHO -e $APP_JSON_PROPERTIES_SCRIPT > $APP_JSON_PROPERTIES_PATH
 
 # turn shell files into binaries
-/usr/bin/sudo /usr/bin/shc -f $APP_BINARY_PUBLISHER_START -o $APP_BINARY_PUBLISHER_START_ACTUAL
-/usr/bin/sudo /usr/bin/shc -f $APP_BINARY_SUBSCRIBER_START -o $APP_BINARY_SUBSCRIBER_START_ACTUAL
+$SUDO $SHC -f $APP_BINARY_PUBLISHER_START -o $APP_BINARY_PUBLISHER_START_ACTUAL
+$SUDO $SHC -f $APP_BINARY_SUBSCRIBER_START -o $APP_BINARY_SUBSCRIBER_START_ACTUAL
 
 # progress notification
-echo $PROGRESS_NOTIFICATION_MOVE_FILES
-echo $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_MOVE_FILES
+$ECHO $PROGRESS_LIMITER
 
 # move binary shell files to /usr/bin/
-/usr/bin/sudo /bin/mv $APP_BINARY_PUBLISHER_START_ACTUAL /usr/bin/${APP_BINARY_PUBLISHER_START_FILENAME}
-/usr/bin/sudo /bin/mv $APP_BINARY_SUBSCRIBER_START_ACTUAL /usr/bin/${APP_BINARY_SUBSCRIBER_START_FILENAME}
+$SUDO $MOVE $APP_BINARY_PUBLISHER_START_ACTUAL /usr/bin/${APP_BINARY_PUBLISHER_START_FILENAME}
+$SUDO $MOVE $APP_BINARY_SUBSCRIBER_START_ACTUAL /usr/bin/${APP_BINARY_SUBSCRIBER_START_FILENAME}
 
 ### move service files to system.d
-/usr/bin/sudo /bin/cp $APP_BINARY_SUBSCRIBER_SERVICE $SERVICE_FILES_DIRECTORY
-/usr/bin/sudo /bin/cp $APP_BINARY_PUBLISHER_SERVICE $SERVICE_FILES_DIRECTORY
+$SUDO $COPY $APP_BINARY_SUBSCRIBER_SERVICE $SERVICE_FILES_DIRECTORY
+$SUDO $COPY $APP_BINARY_PUBLISHER_SERVICE $SERVICE_FILES_DIRECTORY
 
 # copy pem files to their destination
-/usr/bin/sudo /bin/cp ca_crt.pem $APP_KEYSTORE_DIRECTORY"ca_crt.pem"
-/usr/bin/sudo /bin/cp client_crt.pem $APP_KEYSTORE_DIRECTORY"client_crt.pem"
-/usr/bin/sudo /bin/cp client_key.pem $APP_KEYSTORE_DIRECTORY"client_key.pem"
+$SUDO $COPY bin/deployables/serverCrt.pem $APP_KEYSTORE_DIRECTORY"tls_server_crt.pem"
+$SUDO $COPY bin/deployables/clientCrt.pem $APP_KEYSTORE_DIRECTORY"tls_client_crt.pem"
+$SUDO $COPY bin/deployables/clientKey.pem $APP_KEYSTORE_DIRECTORY"tls_client_private_key.pem"
 
 # copy motion config
-/usr/bin/sudo /bin/cp $MOTION_CONFIG /home/dirpic/motion.conf
+$SUDO $COPY $MOTION_CONFIG /home/dirpic/motion.conf
 
 ### set privs, ownership and group of app user's home directory, the service and the binary files
 # maybe not the service and the binary files
 # home directory
 
 # progress notification
-echo $PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER
-echo $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_GIVE_PRIVS_TO_APP_USER
+$ECHO $PROGRESS_LIMITER
 
-/usr/bin/sudo /bin/chmod -R 750 $APP_USER_HOME_DIRECTORY
-/usr/bin/sudo /bin/chown -R dirpic $APP_USER_HOME_DIRECTORY
-/usr/bin/sudo /bin/chgrp -R dirpic $APP_USER_HOME_DIRECTORY
+$SUDO $CHMOD -R 750 $APP_USER_HOME_DIRECTORY
+$SUDO $CHOWN-R dirpic $APP_USER_HOME_DIRECTORY
+$SUDO $CHGRP -R dirpic $APP_USER_HOME_DIRECTORY
 
 ### echo user password into file
 
 # progress notification
-echo $PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS
-echo $PROGRESS_LIMITER
+$ECHO $PROGRESS_NOTIFICATION_ECHO_USER_CREDENTIALS
+$ECHO $PROGRESS_LIMITER
 
-/usr/bin/sudo /bin/echo $APP_USER_PASSWORD_PLAIN_TEXT'|:::::|'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
+$SUDO $ECHO $APP_USER_PASSWORD_PLAIN_TEXT'|:::::|'$APP_USER_PASSWORD_SHA256_HASH > $APP_USER_HOME_DIRECTORY'encrypt'
 
 # progress notification
-echo $PROGRESS_END
-echo $PROGRESS_LIMITER
+$ECHO $PROGRESS_END
+$ECHO $PROGRESS_LIMITER

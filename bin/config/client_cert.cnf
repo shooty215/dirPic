@@ -1,0 +1,17 @@
+[req]
+default_bit = 2048
+x509_extensions = v3_ca
+distinguished_name = req_distinguished_name
+prompt = no
+
+[req_distinguished_name]
+countryName=DE
+stateOrProvinceName=NRW
+localityName=SOEST
+organizationName=dirPic
+commonName=EndPoint
+
+[ v3_ca ]
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = critical, digitalSignature

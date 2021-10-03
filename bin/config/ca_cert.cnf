@@ -1,0 +1,18 @@
+[req]
+default_bit = 2048
+x509_extensions = v3_ca
+distinguished_name = req_distinguished_name
+prompt = no
+
+[req_distinguished_name]
+countryName             = DE
+stateOrProvinceName     = NRW
+localityName            = SOEST
+organizationName        = dirPicCA
+commonName 				= 5.45.99.156
+
+[ v3_ca ]
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:TRUE
+keyUsage = critical, digitalSignature
+extendedKeyUsage = serverAuth, clientAuth
