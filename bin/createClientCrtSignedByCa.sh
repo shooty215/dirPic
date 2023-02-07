@@ -1,39 +1,43 @@
 #!/bin/bash
+
+OPENSSL_CMD="/usr/bin/openssl"
+
 CA_KEY="deployables/ca.key"
 CA_CRT="deployables/caCrt.pem"
 
-BROKER_KEY="deployables/broker.key"
-BROKER_CSR="deployables/broker.csr"
-BROKER_CRT="deployables/brokerCrt.pem"
+CLIENT_KEY="deployables/client.key"
+CLIENT_CSR="deployables/client.csr"
+CLIENT_CRT="deployables/clientCrt.pem"
 
-BROKER_CONF="config/broker_cert.cnf"
+CLIENT_CONF="config/client_cert.cnf"
 
-BROKER_KEY_PEM="deployables/brokerKey.pem"
-
-echo " "
-echo "Generating broker private key"
-echo " "
-$OPENSSL_CMD genrsa -out $BROKER_KEY 4096
-echo " "
+CLIENT_KEY_PEM="deployables/clientKey.pem"
 
 echo " "
-echo "Generating certificate signing request for broker"
+echo "Generating client private key"
 echo " "
-$OPENSSL_CMD req -new -key $BROKER_KEY -out $BROKER_CSR -config $BROKER_CONF
+$OPENSSL_CMD genrsa -out $CLIENT_KEY 4096
 echo " "
 
 echo " "
-echo "Generating RootCA signed broker certificate"
+echo "Generating certificate signing request for client"
 echo " "
-$OPENSSL_CMD x509 -req -in $BROKER_CSR -CA $CA_CRT -CAkey $CA_KEY -out $BROKER_CRT -CAcreateserial -days 365 -sha512
+$OPENSSL_CMD req -new -key $CLIENT_KEY -out $CLIENT_CSR -config $CLIENT_CONF
+echo " "
+
+echo " "
+echo "Generating RootCA signed client certificate"
+echo " "
+$OPENSSL_CMD x509 -req -in $CLIENT_CSR -CA $CA_CRT -CAkey $CA_KEY -out $CLIENT_CRT -CAcreateserial -days 365 -sha512
 echo " "
 
 echo " "
 echo "Turning Keys To PEM"
-$OPENSSL_CMD rsa -in $BROKER_KEY -text > $BROKER_KEY_PEM
+$OPENSSL_CMD rsa -in $CLIENT_KEY -text > $CLIENT_KEY_PEM
 echo " "
 
 echo " "
 echo "Deleting Unwanted Files"
-rm -rf $BROKER_CSR
+rm -rf deployables/caCrt.srl
+rm -rf $CLIENT_CSR
 echo " "
