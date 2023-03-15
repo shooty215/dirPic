@@ -1,16 +1,5 @@
 #!/bin/bash
-SUDO="/usr/bin/sudo"
-ECHO="/bin/echo"
-
-APP_JSON_PROPERTIES_PATH="deployables/properties.json"
-
-### take inputs
-# broker information
-BROKER_IP=$1
-BROKER_PORT=$2
-BROKER_CHANNEL=$3
-BROKER_USER=$4
-BROKER_USER_PASSWORD=$5
+. ../conf/binaries.conf
 
 APP_JSON_PROPERTIES_SCRIPT='{
   "brokerIp": "'$BROKER_IP'",

@@ -5,4 +5,5 @@ echo " "
 echo "Copying cacrt.pem in this directory to /home/dirpic/keystores. Errors:"
 
 # copy pem file to its' destination
-/usr/bin/sudo /bin/cp deployables/caCrt.pem /home/dirpic/keystores/ca_crt.pem
+$SUDO  $CP $CA_CRT $CA_CRT_ACTL
+#/usr/bin/sudo /bin/cp deployables/caCrt.pem /home/dirpic/certificates/ca_crt.pem

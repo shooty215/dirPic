@@ -1,8 +1,5 @@
 #!/bin/bash
-SUDO="/usr/bin/sudo"
-ECHO="/bin/echo"
-
-APP_JSON_ALS_PATH="deployables/als.json"
+. ../conf/binaries.conf
 
 # notification
 echo " "

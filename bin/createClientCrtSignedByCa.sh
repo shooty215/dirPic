@@ -1,17 +1,5 @@
 #!/bin/bash
-
-OPENSSL_CMD="/usr/bin/openssl"
-
-CA_KEY="deployables/ca.key"
-CA_CRT="deployables/caCrt.pem"
-
-CLIENT_KEY="deployables/client.key"
-CLIENT_CSR="deployables/client.csr"
-CLIENT_CRT="deployables/clientCrt.pem"
-
-CLIENT_CONF="config/client_cert.cnf"
-
-CLIENT_KEY_PEM="deployables/clientKey.pem"
+. ../conf/binaries.conf
 
 echo " "
 echo "Generating client private key"

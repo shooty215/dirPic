@@ -1,17 +1,5 @@
 #!/bin/bash
-
-OPENSSL_CMD="/usr/bin/openssl"
-
-CA_KEY="deployables/ca.key"
-CA_CRT="deployables/caCrt.pem"
-
-BROKER_KEY="deployables/broker.key"
-BROKER_CSR="deployables/broker.csr"
-BROKER_CRT="deployables/brokerCrt.pem"
-
-BROKER_CONF="config/broker_cert.cnf"
-
-BROKER_KEY_PEM="deployables/brokerKey.pem"
+. ../conf/binaries.conf
 
 echo " "
 echo "Generating broker private key"

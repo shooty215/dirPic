@@ -1,7 +1,6 @@
 #!/bin/bash
-
-# MAGICZ
-SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
+. ../conf/binaries.conf
 
 # enable service
-/usr/bin/sudo /bin/systemctl enable $SERVICE_FILES_DIRECTORY'dirpicsubscriber.service'
+$SUDO $SYSTEMCTL $ENABLE $SUBSCRIBER_SERVICE_FILES_DIRECTORY
+#/usr/bin/sudo /bin/systemctl enable $SUBSCRIBER_SERVICE_FILES_DIRECTORY

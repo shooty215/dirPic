@@ -1,7 +1,6 @@
 #!/bin/bash
-
-# MAGICZ
-SERVICE_FILES_DIRECTORY="/etc/systemd/system/"
+. ../conf/binaries.conf
 
 # enable service
-/usr/bin/sudo /bin/systemctl enable $SERVICE_FILES_DIRECTORY'dirpicpublisher.service'
+$SUDO $SYSTEMCTL $ENABLE $PUBLISHER_SERVICE_FILES_DIRECTORY
+#/usr/bin/sudo /bin/systemctl enable $PUBLISHER_SERVICE_FILES_DIRECTORY

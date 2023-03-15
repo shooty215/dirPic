@@ -1,10 +1,5 @@
 #!/bin/bash
-
-OPENSSL_CMD="/usr/bin/openssl"
-
-CA_KEY="deployables/ca.key"
-CA_CRT="deployables/caCrt.pem"
-CA_EXTFILE="config/ca_cert.cnf"
+. ../conf/binaries.conf
 
 ## generate rootCA private key
 echo " "
