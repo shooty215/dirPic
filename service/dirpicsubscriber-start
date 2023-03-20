@@ -1,0 +1,7 @@
+#!/bin/bash
+. /etc/dirpic/service.conf
+
+cd /home/dirpic/subscriber
+/home/$APP_USER/bin/java -jar /home/$APP_USER/bin/dirPicSubscriber.jar
+
+exit 0
