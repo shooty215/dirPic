@@ -1,0 +1,7 @@
+#!/bin/bash
+. /etc/dirpic/service.conf
+
+cd /home/dirpic/publisher
+/home/$APP_USER/bin/java -jar /home/$APP_USER/bin/dirPicPublisher.jar
+
+exit 0

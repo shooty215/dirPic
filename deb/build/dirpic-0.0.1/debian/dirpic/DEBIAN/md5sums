@@ -1,0 +1,11 @@
+201d6f3af1c54e21c23207b591b56dda  home/dirpic/bin/dirPicPublisher.jar
+2ace17992b445f18287240b46af20728  home/dirpic/bin/dirPicSubscriber.jar
+f1c56113a91f28b53a3edda0e9074a1d  home/dirpic/bin/dirpicpublisher-start
+cc7126087c403abcc5b60f43f0fbb82e  home/dirpic/bin/dirpicpublisher-stop
+757f9006942621a468b064a1d5d1cd10  home/dirpic/bin/dirpicpublisher.service
+9eb40e1052a5c4e3747ca42e1afa4d63  home/dirpic/bin/dirpicsubscriber-start
+cc7126087c403abcc5b60f43f0fbb82e  home/dirpic/bin/dirpicsubscriber-stop
+4ba34bd3ad4db58f20a87afa290b7192  home/dirpic/bin/dirpicsubscriber.service
+c35f1411727b2af646b0c9fa7577cb1b  usr/share/doc/dirpic/changelog.gz
+30ea13aafd824b556edea38c87b98c80  usr/share/doc/dirpic/copyright
+0b35112bdbb408131013e9dd397419c6  usr/share/man/man1/dirpic.1.gz

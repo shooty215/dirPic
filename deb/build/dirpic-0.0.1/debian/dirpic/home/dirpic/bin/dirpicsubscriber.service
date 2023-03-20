@@ -1,0 +1,16 @@
+[Unit]
+Description=DirPic-Subscriber
+After=network.target
+
+[Service]
+#BindReadOnlyPaths=/usr/bin:/usr/bin
+#BindReadOnlyPaths=/usr/lib:/usr/lib
+User=dirpic
+Type=simple
+#WorkingDirectory=/home/dirpic/runtime
+#RootDirectory=/home/dirpic/root
+ExecStart=/usr/bin/dirpicsubscriber
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

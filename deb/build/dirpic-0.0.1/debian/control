@@ -1,0 +1,10 @@
+Source: dirpic
+Section: misc
+Priority: optional
+Maintainer: Shooty215 <b.heinr@web.de>
+Build-Depends: debhelper (>= 10)
+
+Package: dirpic
+Architecture: all
+Depends: motion (>= 4.3.2-1), openjdk-11-jdk
+Description: Dirpic is meant to provide an easy way to setup a wild-cam-/security-cam-network. This network, when fully deployed, consists of a number of mqtt-publishers and /-subscribers, plus a mqtt-broker.

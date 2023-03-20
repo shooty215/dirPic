@@ -1,0 +1,9 @@
+Package: dirpic
+Version: 0.0.1
+Architecture: all
+Maintainer: Shooty215 <b.heinr@web.de>
+Installed-Size: 11773
+Depends: motion (>= 4.3.2-1), openjdk-11-jdk
+Section: misc
+Priority: optional
+Description: Dirpic is meant to provide an easy way to setup a wild-cam-/security-cam-network. This network, when fully deployed, consists of a number of mqtt-publishers and /-subscribers, plus a mqtt-broker.

@@ -1,0 +1,7 @@
+dirpic (0.0.1) dev; urgency=low
+
+  [ Shooty215 ]
+  * defining deb file, new install process and dependencies
+  * debugging said things
+
+-- Shooty215 b.heinr@web.de --

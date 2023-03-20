@@ -1,0 +1,32 @@
+Format: 1.8
+Date: Mon, 20 Mar 2023 08:56:24 +0100
+Source: dirpic
+Binary: dirpic
+Architecture: source all
+Version: 0.0.1
+Distribution: dev
+Urgency: low
+Maintainer: Shooty215 <b.heinr@web.de>
+Description:
+ dirpic     - Dirpic is meant to provide an easy way to setup a wild-cam-/secur
+Changes:
+ dirpic (0.0.1) dev; urgency=low
+ .
+   [ Shooty215 ]
+   * defining deb file, new install process and dependencies
+   * debugging said things
+Checksums-Sha1:
+ 93c17dfd7275a66d77761fa889366ccdc035bf65 466 dirpic_0.0.1.dsc
+ 73b9fdf6d82f58ec73bf0dfcce6ff7c8e528cfb2 10294412 dirpic_0.0.1.tar.gz
+ 579df6bbaf8283f5c8d0deac02aabe71c519ca5b 7107316 dirpic_0.0.1_all.deb
+ 3422d4cea2077f24f22afe6d8ad01aef2d7201e2 6463 dirpic_0.0.1_amd64.buildinfo
+Checksums-Sha256:
+ 6b660a461d9b15ca86be1404b4c88afae2cf63dfc15b58e5735796745231c92d 466 dirpic_0.0.1.dsc
+ c8aa3cf59626d6a23160ec556817457f6626b1e7f21a9de9ea7f478df665010c 10294412 dirpic_0.0.1.tar.gz
+ 352cd80235bdbdb0c0a5c2eaeec29f8547bb1791191a567a630130ff3d85e34d 7107316 dirpic_0.0.1_all.deb
+ d4e50fe352e00d8c2542932cdc6dd14be35bfff0810a4779ff4802a659aff696 6463 dirpic_0.0.1_amd64.buildinfo
+Files:
+ 939e782c0a018a719c6a8ee02ea77863 466 misc optional dirpic_0.0.1.dsc
+ 73159e9e4fc3bef8837f5addea8309b2 10294412 misc optional dirpic_0.0.1.tar.gz
+ 121d16e685c77ae1be315c504f4569a2 7107316 misc optional dirpic_0.0.1_all.deb
+ ad16e1e3842214b614dcd4ce5f3fdf2e 6463 misc optional dirpic_0.0.1_amd64.buildinfo

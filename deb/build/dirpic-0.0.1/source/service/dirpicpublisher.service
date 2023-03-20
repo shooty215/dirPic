@@ -1,0 +1,16 @@
+[Unit]
+Description=DirPic-Publisher: Listens to the specified folder and await jpegs from a camera
+After=network.target
+
+[Service]
+Type=simple
+RemainAfterExit=no
+#TasksMax=20 not enough
+User=dirpic
+Group=dirpic
+ExecStart=/home/dirpic/bin/dirpicpublisher-start
+ExecStop=/home/dirpic/bin/dirpicpublisher-stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

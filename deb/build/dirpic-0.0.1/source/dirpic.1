@@ -1,0 +1,30 @@
+# NAME
+
+dirpic
+
+# SYNOPSIS
+
+man dirpic
+
+# DESCRIPTION
+
+Dirpic is meant to provide an easy way to setup a wild-cam-/security-cam-network.
+This network, when fully deployed, consists of a number of mqtt-publishers
+and /-subscribers, plus a mqtt-broker.
+
+  [1]: https://github.com/shooty215/dirPic.git
+
+# USAGE
+
+  [1]: systemctl start | stop | status | restart dirpicpublisher.service
+  [2]: systemctl start | stop | status | restart dirpicsubscriber.service
+
+  [3]: nano /etc/dirpic/service.conf
+  [4]: nano /etc/dirpic/publisher.conf
+  [5]: nano /etc/dirpic/service.conf
+
+# OVERVIEW
+  
+  [1]: Mqtt-publisher waits for motion to save a picture into the specified directory. It then sends it to broker.
+  [2]: Broker provides picture to the subscribers of the respective channel.
+  [3]: Subscriber saves the picture in respective directory.

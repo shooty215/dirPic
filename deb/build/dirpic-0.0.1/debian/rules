@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	mkdir -p debian/dirpic/etc/dirpic/;
+	mkdir -p debian/dirpic/home/dirpic/;
+	mkdir -p debian/dirpic/home/dirpic/etc/dirpic/;
+	mkdir -p debian/dirpic/usr/share/man/man1/;
+	mkdir debian/dirpic/home/dirpic/bin/;
+	mkdir debian/dirpic/home/dirpic/certificates/;
+	mkdir debian/dirpic/home/dirpic/camera/;
+	mkdir debian/dirpic/home/dirpic/storage/;
+	cp source/conf/service.conf debian/dirpic/home/dirpic/etc/dirpic/;
+	cp source/service/dirpicpublisher-start debian/dirpic/home/dirpic/bin/;
+	cp source/service/dirpicpublisher-stop debian/dirpic/home/dirpic/bin/;
+	cp source/service/dirpicpublisher.service debian/dirpic/home/dirpic/bin;
+	cp source/jars/dirPicPublisher.jar debian/dirpic/home/dirpic/bin;
+	cp source/service/dirpicsubscriber-start debian/dirpic/home/dirpic/bin/;
+	cp source/service/dirpicsubscriber-stop debian/dirpic/home/dirpic/bin/;
+	cp source/service/dirpicsubscriber.service debian/dirpic/home/dirpic/bin;
+	cp source/jars/dirPicSubscriber.jar debian/dirpic/home/dirpic/bin;
