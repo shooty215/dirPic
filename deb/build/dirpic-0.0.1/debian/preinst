@@ -7,7 +7,6 @@ if [ "$1" = "configure" ] ; then
     sudo adduser --system --group --disabled-password --shell /bin/bash --home /home/dirpic --quiet dirpic
     echo 'copying service files'
     sudo cp /home/dirpic/etc/dirpic/service.conf /etc/dirpic/
-    
     echo 'Running post-installation script for dirpicpublisher...'
     cp /home/dirpic/bin/dirpicpublisher.service /etc/systemd/system
     echo 'fully establishing systemd service'
@@ -16,9 +15,6 @@ if [ "$1" = "configure" ] ; then
     sudo chmod 664 /etc/systemd/system/dirpicpublisher.service
     sudo chown -R dirpic:dirpic /home/dirpic
     echo 'dirpicpublisher install process done.'
-
-
-
     echo 'Running post-installation script for dirpicpublisher...'
     cp /home/dirpic/bin/dirpicsubscriber.service /etc/systemd/system
     echo 'fully establishing systemd service'
@@ -27,8 +23,6 @@ if [ "$1" = "configure" ] ; then
     sudo chmod 664 /etc/systemd/system/dirpicsubscriber.service
     sudo chown -R dirpic:dirpic /home/dirpic
     echo 'dirpicpublisher install process done.'
-
-
     echo 'creating symlinks.'
     sudo ln -s /bin/java /home/dirpic/bin/
     sudo chown -R pzuser:pzuser /home/pzuser/

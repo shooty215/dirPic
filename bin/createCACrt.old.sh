@@ -12,19 +12,15 @@ echo " "
 echo " "
 echo "Generating CA's private key"
 echo " "
-#$OPENSSL_CMD genrsa -out $CA_KEY $RSA_KEY_LENGTH
-$OPENSSL_CMD genpkey -algorithm RSA -out $CA_KEY -pkeyopt rsa_keygen_bits:$RSA_KEY_LENGTH -aes256
+$OPENSSL_CMD genrsa -out $CA_KEY $RSA_KEY_LENGTH
 echo " "
 
 ## generate rootCA certificate
 echo " "
 echo "Generating CA's certificate"
 echo " "
-#$OPENSSL_CMD req -new -x509 -days 3650 -config $CA_EXTFILE -key $CA_KEY -out $CA_CRT
-$OPENSSL_CMD req -new -x509 -days $CA_DAYS -key $CA_KEY -out $CA_CRT \
--config <(cat $CRT_CONFIG \
-<(printf "\n[ca]\nbasicConstraints = critical,CA:true\nsubjectKeyIdentifier=hash\nauthorityKeyIdentifier=keyid:always,issuer:always\n")) \
--SHA256
+$OPENSSL_CMD req -new -x509 -days 3650 -config $CA_EXTFILE -key $CA_KEY -out $CA_CRT
+
 echo " "
 
 ## read the certificate
